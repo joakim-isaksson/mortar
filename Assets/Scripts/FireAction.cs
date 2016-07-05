@@ -57,13 +57,12 @@ public class FireAction : MonoBehaviour
 
 	IEnumerator Tween(Transform from, Transform to, float duration)
 	{
-		float passed = 0;
-		float time = 0;
-		while (time < 1.0f)
+		var i = 0.0f;
+		var rate = 1.0f / duration;
+		while (i < 1.0f)
 		{
-			passed += Time.deltaTime;
-			time = passed / duration;
-			transform.position = Vector3.Lerp(from.position, to.position, time);
+			i += Time.deltaTime * rate;
+			transform.position = Vector3.Lerp(from.position, to.position, i);
 			yield return null;
 		}
 	}
