@@ -68,7 +68,7 @@ public class CannonRotator : MonoBehaviour
 	}
 	*/
 
-	public void OnTriggerEnter(Collider other)
+	public void OnTriggerStay(Collider other)
 	{
 		Debug.Log("OnTriggerEnter: " + other.tag);
 		if (other.tag == "Controller")
@@ -76,13 +76,11 @@ public class CannonRotator : MonoBehaviour
 			SteamVR_TrackedObject controller = other.GetComponent<SteamVR_TrackedObject>();
 			if (controller != null)
 			{
-				Debug.Log("has TrackedObject");
 				if (controller.index == SteamVR_TrackedObject.EIndex.None) return;
 				int index = (int)controller.index;
 
 				if (SteamVR_Controller.Input(index).GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
 				{
-					Debug.Log("is pressedDown");
 					grabbed = true;
 					this.controller = controller;
 				}
