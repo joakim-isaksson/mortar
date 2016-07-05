@@ -161,6 +161,14 @@ Transform:
   m_Children: []
   m_Father: {fileID: 598592814}
   m_RootOrder: 0
+--- !u!4 &355776064 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 474588, guid: 8bab3302fc9645543a0f67f0eb560eae, type: 2}
+  m_PrefabInternal: {fileID: 704258869}
+--- !u!4 &430350625 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 460606, guid: 8bab3302fc9645543a0f67f0eb560eae, type: 2}
+  m_PrefabInternal: {fileID: 704258869}
 --- !u!1 &557067191
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,9 +339,53 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6507582, guid: 8bab3302fc9645543a0f67f0eb560eae, type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 460606, guid: 8bab3302fc9645543a0f67f0eb560eae, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6555690, guid: 8bab3302fc9645543a0f67f0eb560eae, type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8bab3302fc9645543a0f67f0eb560eae, type: 2}
   m_IsPrefabParent: 0
+--- !u!4 &704258870 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 444158, guid: 8bab3302fc9645543a0f67f0eb560eae, type: 2}
+  m_PrefabInternal: {fileID: 704258869}
+--- !u!1 &704258871 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 119330, guid: 8bab3302fc9645543a0f67f0eb560eae, type: 2}
+  m_PrefabInternal: {fileID: 704258869}
+--- !u!114 &704258872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 704258871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 380861ff4152a614a8511b3fcc7cdeef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  control: {fileID: 704258870}
+  wheel: {fileID: 704258873}
+  cannon: {fileID: 430350625}
+  axis: {x: 1, y: 0, z: 0}
+  multiplier: 0.03
+--- !u!4 &704258873 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 488472, guid: 8bab3302fc9645543a0f67f0eb560eae, type: 2}
+  m_PrefabInternal: {fileID: 704258869}
+--- !u!4 &721346794 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 411178, guid: 8bab3302fc9645543a0f67f0eb560eae, type: 2}
+  m_PrefabInternal: {fileID: 704258869}
 --- !u!1 &855589072
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,9 +609,10 @@ GameObject:
   - 23: {fileID: 1436307913}
   - 114: {fileID: 1436307917}
   - 114: {fileID: 1436307918}
+  - 54: {fileID: 1436307919}
   m_Layer: 0
   m_Name: Controller 1
-  m_TagString: Untagged
+  m_TagString: Controller
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -649,6 +702,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultColor: {r: 0.59107506, g: 1, b: 0.53676474, a: 0}
   activeColor: {r: 0.0042711976, g: 0.5808823, b: 0.008247794, a: 0}
+--- !u!54 &1436307919
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1436307912}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1699959634
 GameObject:
   m_ObjectHideFlags: 0
@@ -708,9 +776,10 @@ GameObject:
   - 23: {fileID: 1786738309}
   - 114: {fileID: 1786738313}
   - 114: {fileID: 1786738314}
+  - 54: {fileID: 1786738315}
   m_Layer: 0
   m_Name: Controller 2
-  m_TagString: Untagged
+  m_TagString: Controller
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -800,3 +869,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultColor: {r: 0.5, g: 0.6068965, b: 1, a: 0}
   activeColor: {r: 0.04016245, g: 0, b: 0.5294118, a: 0}
+--- !u!54 &1786738315
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1786738308}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!4 &2050307950 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 413338, guid: 8bab3302fc9645543a0f67f0eb560eae, type: 2}
+  m_PrefabInternal: {fileID: 704258869}
+--- !u!1 &2059576729 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 117034, guid: 8bab3302fc9645543a0f67f0eb560eae, type: 2}
+  m_PrefabInternal: {fileID: 704258869}
+--- !u!114 &2059576731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2059576729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 380861ff4152a614a8511b3fcc7cdeef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  control: {fileID: 2050307950}
+  wheel: {fileID: 355776064}
+  cannon: {fileID: 721346794}
+  axis: {x: 0, y: 1, z: 0}
+  multiplier: 0.03
