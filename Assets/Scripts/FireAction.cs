@@ -29,11 +29,15 @@ public class FireAction : MonoBehaviour
 
 	void TryToFire()
 	{
+		Debug.Log("Trying to fire");
+
 		// Check cooldown
 		if (cooldown) return;
 		cooldown = true;
 
-		AnimateTrigger();
+		Debug.Log("Firing");
+
+		StartCoroutine(AnimateTrigger());
 		SpawnMissile();
 	}
 
@@ -46,14 +50,17 @@ public class FireAction : MonoBehaviour
 
 	IEnumerator AnimateTrigger()
 	{
+		Debug.Log("Starting animation");
 		Vector3 startPosition = transform.position;
 		yield return StartCoroutine(MoveObject(transform, TriggerPullPoint, TriggerPullTime));
 		yield return StartCoroutine(MoveObject(transform, startPosition, TriggerReturnTime));
+		Debug.Log("Animation ended");
 		cooldown = false;
 	}
 
 	IEnumerator MoveObject(Transform transform, Vector3 endPos, float time)
 	{
+		Debug.Log("Animating...");
 		Vector3 startPos = transform.position;
 		float i = 0.0f;
 		float rate = 1.0f / time;
