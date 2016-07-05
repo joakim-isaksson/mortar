@@ -49,7 +49,7 @@ public class FireAction : MonoBehaviour
 	IEnumerator AnimateTrigger()
 	{
 		yield return StartCoroutine(Tween(TriggerPullStart, TriggerPullEnd, TriggerPullTime));
-		//yield return StartCoroutine(Tween(TriggerPullEnd, TriggerPullStart, TriggerReturnTime));
+		yield return StartCoroutine(Tween(TriggerPullEnd, TriggerPullStart, TriggerReturnTime));
 		cooldown = false;
 	}
 
