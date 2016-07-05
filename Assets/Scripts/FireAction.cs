@@ -6,7 +6,9 @@ public class FireAction : MonoBehaviour
 	public Transform SpawnPoint;
 	public GameObject MissilePrefab;
 	public float FiringForce;
-	public Vector3 TriggerPullPoint;
+
+	public Transform TriggerPullStart;
+	public Transform TriggerPullEnd;
 	public float TriggerPullTime;
 	public float TriggerReturnTime;
 
@@ -29,8 +31,6 @@ public class FireAction : MonoBehaviour
 
 	void TryToFire()
 	{
-		Debug.Log("Trying to fire");
-
 		// Check cooldown
 		if (cooldown) return;
 		cooldown = true;
@@ -50,24 +50,20 @@ public class FireAction : MonoBehaviour
 
 	IEnumerator AnimateTrigger()
 	{
-		Debug.Log("Starting animation");
-		Vector3 startPosition = transform.position;
-		yield return StartCoroutine(MoveObject(transform, TriggerPullPoint, TriggerPullTime));
-		yield return StartCoroutine(MoveObject(transform, startPosition, TriggerReturnTime));
-		Debug.Log("Animation ended");
+		yield return StartCoroutine(Tween(TriggerPullStart, TriggerPullEnd, TriggerPullTime));
+		yield return StartCoroutine(Tween(TriggerPullEnd, TriggerPullStart, TriggerReturnTime));
 		cooldown = false;
 	}
 
-	IEnumerator MoveObject(Transform transform, Vector3 endPos, float time)
+	IEnumerator Tween(Transform from, Transform to, float duration)
 	{
-		Debug.Log("Animating...");
-		Vector3 startPos = transform.position;
-		float i = 0.0f;
-		float rate = 1.0f / time;
-		while (i < 1.0f)
+		float passed = 0;
+		float time = 0;
+		while (time < 1.0f)
 		{
-			i += Time.deltaTime * rate;
-			transform.position = Vector3.Lerp(startPos, endPos, i);
+			passed += Time.deltaTime;
+			time = passed / duration;
+			transform.position = Vector3.Lerp(from.position, to.position, time);
 			yield return null;
 		}
 	}
