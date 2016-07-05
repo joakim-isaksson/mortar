@@ -3,7 +3,7 @@ using System.Collections;
 
 public class FireAction : MonoBehaviour
 {
-	public GameObject spawnPoint;
+	public Transform spawnPoint;
 	public GameObject missilePrefab;
 	public float force;
 
@@ -38,8 +38,8 @@ public class FireAction : MonoBehaviour
 
 	void SpawnMissile()
 	{
-		GameObject missile = (GameObject)Instantiate(missilePrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
+		GameObject missile = (GameObject)Instantiate(missilePrefab, spawnPoint.position, spawnPoint.rotation);
 		Rigidbody rb = missile.GetComponent<Rigidbody>();
-		rb.AddForce(spawnPoint.transform.forward * force, ForceMode.Impulse);
+		rb.AddForce(spawnPoint.forward * force, ForceMode.Impulse);
 	}
 }
