@@ -1,4 +1,4 @@
-﻿#define _DEBUG_CONTROLLER_
+﻿//#define _DEBUG_CONTROLLER_
 
 using UnityEngine;
 using System.Collections;
