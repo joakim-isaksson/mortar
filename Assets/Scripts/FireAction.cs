@@ -3,25 +3,17 @@ using System.Collections;
 
 public class FireAction : MonoBehaviour
 {
-	public Transform spawnPoint;
-	public GameObject missilePrefab;
-	public float force;
+	public Transform SpawnPoint;
+	public GameObject MissilePrefab;
+	public float FiringForce;
+	public Vector3 TriggerPullPoint;
+	public float TriggerPullTime;
+	public float TriggerReturnTime;
 
-	bool firing;
-
-	void Update()
-	{
-		if (firing)
-		{
-			SpawnMissile();
-			firing = false;
-		}
-	}
+	bool cooldown;
 
 	public void OnTriggerStay(Collider other)
 	{
-		if (firing) return;
-
 		if (other.tag == "Controller")
 		{
 			SteamVR_TrackedObject controller = other.GetComponent<SteamVR_TrackedObject>();
@@ -29,17 +21,47 @@ public class FireAction : MonoBehaviour
 			{
 				if (SteamVR_Controller.Input((int)controller.index).GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
 				{
-					firing = true;
+					TryToFire();
 				}
 			}
-
 		}
+	}
+
+	void TryToFire()
+	{
+		// Check cooldown
+		if (cooldown) return;
+		cooldown = true;
+
+		AnimateTrigger();
+		SpawnMissile();
 	}
 
 	void SpawnMissile()
 	{
-		GameObject missile = (GameObject)Instantiate(missilePrefab, spawnPoint.position, spawnPoint.rotation);
+		GameObject missile = (GameObject)Instantiate(MissilePrefab, SpawnPoint.position, SpawnPoint.rotation);
 		Rigidbody rb = missile.GetComponent<Rigidbody>();
-		rb.AddForce(spawnPoint.forward * force, ForceMode.Impulse);
+		rb.AddForce(SpawnPoint.forward * FiringForce, ForceMode.Impulse);
+	}
+
+	IEnumerator AnimateTrigger()
+	{
+		Vector3 startPosition = transform.position;
+		yield return StartCoroutine(MoveObject(transform, TriggerPullPoint, TriggerPullTime));
+		yield return StartCoroutine(MoveObject(transform, startPosition, TriggerReturnTime));
+		cooldown = false;
+	}
+
+	IEnumerator MoveObject(Transform transform, Vector3 endPos, float time)
+	{
+		Vector3 startPos = transform.position;
+		float i = 0.0f;
+		float rate = 1.0f / time;
+		while (i < 1.0f)
+		{
+			i += Time.deltaTime * rate;
+			transform.position = Vector3.Lerp(startPos, endPos, i);
+			yield return null;
+		}
 	}
 }
