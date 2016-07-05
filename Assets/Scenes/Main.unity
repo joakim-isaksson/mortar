@@ -318,6 +318,14 @@ Prefab:
       propertyPath: maxAngle
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 11479462, guid: 8bab3302fc9645543a0f67f0eb560eae, type: 2}
+      propertyPath: minAngle
+      value: -Infinity
+      objectReference: {fileID: 0}
+    - target: {fileID: 11479462, guid: 8bab3302fc9645543a0f67f0eb560eae, type: 2}
+      propertyPath: maxAngle
+      value: Infinity
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8bab3302fc9645543a0f67f0eb560eae, type: 2}
   m_IsPrefabParent: 0
