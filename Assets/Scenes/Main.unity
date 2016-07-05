@@ -302,9 +302,46 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 460606, guid: 8bab3302fc9645543a0f67f0eb560eae, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11476998, guid: 8bab3302fc9645543a0f67f0eb560eae, type: 2}
+      propertyPath: maxAngle.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11476998, guid: 8bab3302fc9645543a0f67f0eb560eae, type: 2}
+      propertyPath: minAngle
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11476998, guid: 8bab3302fc9645543a0f67f0eb560eae, type: 2}
+      propertyPath: maxAngle
+      value: 90
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8bab3302fc9645543a0f67f0eb560eae, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &704258870 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 114942, guid: 8bab3302fc9645543a0f67f0eb560eae, type: 2}
+  m_PrefabInternal: {fileID: 704258869}
+--- !u!4 &704258871 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 460606, guid: 8bab3302fc9645543a0f67f0eb560eae, type: 2}
+  m_PrefabInternal: {fileID: 704258869}
+--- !u!114 &704258872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 704258870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf51d8b089ebf1a4ca61068b8b92060a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barrel: {fileID: 704258871}
+  barrelStartAngle: 45
 --- !u!1 &855589072
 GameObject:
   m_ObjectHideFlags: 0

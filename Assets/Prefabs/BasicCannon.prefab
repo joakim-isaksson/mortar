@@ -89,6 +89,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 428616}
+  - 114: {fileID: 11473524}
   m_Layer: 0
   m_Name: BasicCannon
   m_TagString: Untagged
@@ -1689,6 +1690,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotator: {fileID: 11479462}
+--- !u!114 &11473524
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 114942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf51d8b089ebf1a4ca61068b8b92060a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barrel: {fileID: 460606}
+  barrelStartAngle: 45
 --- !u!114 &11474156
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1718,6 +1732,8 @@ MonoBehaviour:
   axis: {x: 1, y: 0, z: 0}
   multiplier: 0.01
   maxAngularSpeed: 1500
+  minAngle: 5
+  maxAngle: 90
 --- !u!114 &11479462
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1735,6 +1751,8 @@ MonoBehaviour:
   axis: {x: 0, y: 1, z: 0}
   multiplier: 0.01
   maxAngularSpeed: 1500
+  minAngle: 0
+  maxAngle: 0
 --- !u!114 &11497252
 MonoBehaviour:
   m_ObjectHideFlags: 1

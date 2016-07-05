@@ -16,6 +16,7 @@ public class CannonRotator : MonoBehaviour
 	public Vector3 axis;
 	public float multiplier;
 	public float maxAngularSpeed;
+	public float minAngle, maxAngle;
 
 	// Use this for initialization
 	void Start()
@@ -29,7 +30,6 @@ public class CannonRotator : MonoBehaviour
 	{
 		if (grabbed)
 		{
-
 #if (!_DEBUG_CONTROLLER_)
 			if (controller.index == SteamVR_TrackedObject.EIndex.None)
 			{
