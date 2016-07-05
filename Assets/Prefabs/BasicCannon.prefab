@@ -124,6 +124,7 @@ GameObject:
   - 33: {fileID: 3376138}
   - 23: {fileID: 2342402}
   - 65: {fileID: 6555690}
+  - 114: {fileID: 11479462}
   m_Layer: 0
   m_Name: Handle
   m_TagString: Untagged
@@ -142,6 +143,7 @@ GameObject:
   - 33: {fileID: 3305768}
   - 23: {fileID: 2356522}
   - 65: {fileID: 6507582}
+  - 114: {fileID: 11476998}
   m_Layer: 0
   m_Name: Handle
   m_TagString: Untagged
@@ -541,10 +543,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 134380}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071067}
   m_LocalPosition: {x: 0, y: 8.76, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 460606}
   m_RootOrder: 5
@@ -1544,7 +1546,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 119330}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.99999994, y: 1.9999993, z: 1}
@@ -1556,7 +1558,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 117034}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.99999994, y: 1.9999993, z: 1}
@@ -1574,6 +1576,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 164112, guid: a6a16cb191cdd1a4a8eefc4d68600090, type: 2}
   force: 20
+--- !u!114 &11476998
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 119330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 380861ff4152a614a8511b3fcc7cdeef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  control: {fileID: 444158}
+  wheel: {fileID: 488472}
+  cannon: {fileID: 460606}
+  axis: {x: 1, y: 0, z: 0}
+  multiplier: 0.03
+--- !u!114 &11479462
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 117034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 380861ff4152a614a8511b3fcc7cdeef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  control: {fileID: 413338}
+  wheel: {fileID: 474588}
+  cannon: {fileID: 411178}
+  axis: {x: 0, y: 1, z: 0}
+  multiplier: 0.03
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
