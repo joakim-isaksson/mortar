@@ -258,6 +258,7 @@ GameObject:
   - 4: {fileID: 416676}
   - 33: {fileID: 3376878}
   - 23: {fileID: 2333636}
+  - 114: {fileID: 11414578}
   m_Layer: 0
   m_Name: Tip
   m_TagString: Untagged
@@ -403,6 +404,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 465904}
+  - 65: {fileID: 6588982}
+  - 114: {fileID: 11497252}
   m_Layer: 0
   m_Name: Trigger
   m_TagString: Untagged
@@ -1563,6 +1566,30 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.99999994, y: 1.9999993, z: 1}
   m_Center: {x: 0.000000059604634, y: -1.2705493e-21, z: 0.0000037252903}
+--- !u!65 &6588982
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 172864}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.035, y: 0.035, z: 0.13}
+  m_Center: {x: 0, y: 0, z: -0.485}
+--- !u!114 &11414578
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5939d7d60d71aca4488b741708822c1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileSpawner: {fileID: 0}
 --- !u!114 &11429718
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1608,6 +1635,18 @@ MonoBehaviour:
   cannon: {fileID: 411178}
   axis: {x: 0, y: 1, z: 0}
   multiplier: 0.03
+--- !u!114 &11497252
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 172864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5939d7d60d71aca4488b741708822c1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileSpawner: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
