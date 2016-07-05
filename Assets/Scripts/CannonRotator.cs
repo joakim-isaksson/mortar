@@ -33,16 +33,14 @@ public class CannonRotator : MonoBehaviour
 #if (!_DEBUG_CONTROLLER_)
 			if (controller.index == SteamVR_TrackedObject.EIndex.None)
 			{
-				grabbed = false;
-				controller = null;
+				stopRotating();
 				return;
 			}
 
 			int index = (int)controller.index;
 			if (SteamVR_Controller.Input(index).GetPressUp(SteamVR_Controller.ButtonMask.Trigger))
 			{
-				grabbed = false;
-				controller = null;
+				stopRotating();
 				return;
 			}
 #endif
@@ -66,7 +64,7 @@ public class CannonRotator : MonoBehaviour
 
 			angleDiff = limitedNormAngDiff;
 
-			Debug.Log("speed: " + normAngDiff + ", limited: " + limitedNormAngDiff);
+			//Debug.Log("speed: " + normAngDiff + ", limited: " + limitedNormAngDiff);
 
 			wheel.transform.eulerAngles = new Vector3(wheel.transform.eulerAngles.x, wheel.transform.eulerAngles.y, wheel.transform.eulerAngles.z + angleDiff);
 
@@ -76,20 +74,7 @@ public class CannonRotator : MonoBehaviour
 
 			cannon.transform.Rotate(axis * angleDiff * multiplier);
 		}
-		//if (colliding) transform.Rotate(new Vector3(0, 0, Time.deltaTime * 90));
 	}
-
-	/*
-	public void OnTriggerExit(Collider other)
-	{
-		Debug.Log("OnTriggerExit: " + other.tag);
-		if (other.tag == "Controller")
-		{
-			grabbed = false;
-			controller = null;
-		}
-	}
-	*/
 
 	public void OnTriggerStay(Collider other)
 	{
@@ -104,11 +89,25 @@ public class CannonRotator : MonoBehaviour
 				if (SteamVR_Controller.Input((int)controller.index).GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
 #endif
 				{
-					grabbed = true;
-					this.controller = controller;
+					if (!grabbed)
+					{
+						grabbed = true;
+						this.controller = controller;
+						SteamVR_Controller.Input((int)controller.index).TriggerHapticPulse(10000);
+					}
 				}
 			}
-
 		}
+	}
+
+	public void stopRotating()
+	{
+		if (controller != null && controller.index != SteamVR_TrackedObject.EIndex.None)
+		{
+			SteamVR_Controller.Input((int)controller.index).TriggerHapticPulse(10000);
+		}
+
+		grabbed = false;
+		controller = null;
 	}
 }
