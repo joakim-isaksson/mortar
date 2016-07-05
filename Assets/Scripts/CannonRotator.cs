@@ -93,7 +93,8 @@ public class CannonRotator : MonoBehaviour
 					{
 						grabbed = true;
 						this.controller = controller;
-						SteamVR_Controller.Input((int)controller.index).TriggerHapticPulse(10000);
+						SteamVR_Controller.Input((int)controller.index).TriggerHapticPulse(3999);
+						Debug.Log("grabbed");
 					}
 				}
 			}
@@ -104,10 +105,12 @@ public class CannonRotator : MonoBehaviour
 	{
 		if (controller != null && controller.index != SteamVR_TrackedObject.EIndex.None)
 		{
-			SteamVR_Controller.Input((int)controller.index).TriggerHapticPulse(10000);
+			SteamVR_Controller.Input((int)controller.index).TriggerHapticPulse(3999);
 		}
 
 		grabbed = false;
 		controller = null;
+
+		Debug.Log("ungrabbed");
 	}
 }
