@@ -193,9 +193,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 420120}
-  - 114: {fileID: 11429718}
   m_Layer: 0
-  m_Name: ProjectileSpawnPoint
+  m_Name: MissileSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1589,20 +1588,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5939d7d60d71aca4488b741708822c1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpawner: {fileID: 0}
---- !u!114 &11429718
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 134380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4426b9749d15c50499e2466fcbf7c610, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 164112, guid: a6a16cb191cdd1a4a8eefc4d68600090, type: 2}
-  force: 20
+  spawnPoint: {fileID: 0}
+  missilePrefab: {fileID: 0}
+  force: 0
 --- !u!114 &11476998
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1646,7 +1634,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5939d7d60d71aca4488b741708822c1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpawner: {fileID: 0}
+  spawnPoint: {fileID: 134380}
+  missilePrefab: {fileID: 164112, guid: a6a16cb191cdd1a4a8eefc4d68600090, type: 2}
+  force: 20
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

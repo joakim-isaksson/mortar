@@ -3,20 +3,17 @@ using System.Collections;
 
 public class FireAction : MonoBehaviour
 {
-	public ProjectileSpawner projectileSpawner;
+	public GameObject spawnPoint;
+	public GameObject missilePrefab;
+	public float force;
 
 	bool firing;
-
-	void Awake()
-	{
-
-	}
 
 	void Update()
 	{
 		if (firing)
 		{
-			projectileSpawner.Spawn();
+			SpawnMissile();
 			firing = false;
 		}
 	}
@@ -37,5 +34,12 @@ public class FireAction : MonoBehaviour
 			}
 
 		}
+	}
+
+	void SpawnMissile()
+	{
+		GameObject missile = (GameObject)Instantiate(missilePrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
+		Rigidbody rb = missile.GetComponent<Rigidbody>();
+		rb.AddForce(spawnPoint.transform.forward * force, ForceMode.Impulse);
 	}
 }
