@@ -35,8 +35,6 @@ public class FireAction : MonoBehaviour
 		if (cooldown) return;
 		cooldown = true;
 
-		Debug.Log("Firing");
-
 		StartCoroutine(AnimateTrigger());
 		SpawnMissile();
 	}
@@ -51,18 +49,19 @@ public class FireAction : MonoBehaviour
 	IEnumerator AnimateTrigger()
 	{
 		yield return StartCoroutine(Tween(TriggerPullStart, TriggerPullEnd, TriggerPullTime));
-		yield return StartCoroutine(Tween(TriggerPullEnd, TriggerPullStart, TriggerReturnTime));
+		//yield return StartCoroutine(Tween(TriggerPullEnd, TriggerPullStart, TriggerReturnTime));
 		cooldown = false;
 	}
 
 	IEnumerator Tween(Transform from, Transform to, float duration)
 	{
-		var i = 0.0f;
-		var rate = 1.0f / duration;
-		while (i < 1.0f)
+		float passed = 0;
+		float time = 0;
+		while (time < 1.0f)
 		{
-			i += Time.deltaTime * rate;
-			transform.position = Vector3.Lerp(from.position, to.position, i);
+			passed += Time.deltaTime;
+			time = passed / duration;
+			transform.position = Vector3.Lerp(from.position, to.position, time);
 			yield return null;
 		}
 	}
