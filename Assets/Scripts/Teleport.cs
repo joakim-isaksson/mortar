@@ -21,11 +21,21 @@ public class Teleport : MonoBehaviour
 		if (index != -1)
 		{
 			Vector2 touchLoc = SteamVR_Controller.Input(index).GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad);
-			if (touchLoc != null) Debug.Log("touch: " + touchLoc.ToString("f4"));
+			//if (touchLoc != null) Debug.Log("touch: " + touchLoc.ToString("f4"));
 
 			if (SteamVR_Controller.Input(index).GetTouchDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
 			{
 				Debug.Log("touchdown");
+			}
+
+			if (SteamVR_Controller.Input(index).GetTouchUp(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
+			{
+				Debug.Log("touchup");
+			}
+
+			if (SteamVR_Controller.Input(index).GetTouch(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
+			{
+				Debug.Log("touch");
 			}
 		}
 
