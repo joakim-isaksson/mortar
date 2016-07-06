@@ -10,6 +10,8 @@ public class FireAction : MonoBehaviour
 	public PingPongAnimator TriggerAnimator;
 	public PingPongAnimator BarrelAnimator;
 
+	public AudioSource blastSound;
+
 	bool triggerCooldown;
 	bool recoilCooldown;
 
@@ -18,6 +20,7 @@ public class FireAction : MonoBehaviour
 		// Check cooldowns
 		if (TriggerAnimator.Animating || BarrelAnimator.Animating) return;
 
+		blastSound.Play();
 		TriggerAnimator.StartAnimation();
 		BarrelAnimator.StartAnimation();
 		SpawnMissile();

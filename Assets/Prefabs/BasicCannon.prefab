@@ -374,6 +374,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 467222}
+  - 82: {fileID: 8236026}
   m_Layer: 0
   m_Name: Muzzle
   m_TagString: Untagged
@@ -2068,6 +2069,80 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.035, y: 0.035, z: 0.13}
   m_Center: {x: 0, y: 0, z: -0.485}
+--- !u!82 &8236026
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 157178}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 89a8f52ee1f9628429f6161f978f6a45, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &11414578
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2084,6 +2159,7 @@ MonoBehaviour:
   MissileForce: 0
   TriggerAnimator: {fileID: 0}
   BarrelAnimator: {fileID: 0}
+  blastSound: {fileID: 0}
 --- !u!114 &11420308
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2139,6 +2215,7 @@ MonoBehaviour:
   MissileForce: 50
   TriggerAnimator: {fileID: 11446056}
   BarrelAnimator: {fileID: 11495528}
+  blastSound: {fileID: 8236026}
 --- !u!114 &11473524
 MonoBehaviour:
   m_ObjectHideFlags: 1
