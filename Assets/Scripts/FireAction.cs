@@ -17,8 +17,8 @@ public class FireAction : MonoBehaviour
 	public float RecoilTime;
 	public float RecoilReturnTime;
 
-	bool triggerReady;
-	bool recoilReady;
+	bool triggerCooldown;
+	bool recoilCooldown;
 
 	public void OnTriggerStay(Collider other)
 	{
@@ -37,10 +37,10 @@ public class FireAction : MonoBehaviour
 
 	void TryToFire()
 	{
-		// Check that recoil is over and trigger has returned
-		if (!triggerReady || !recoilReady) return;
-		triggerReady = false;
-		recoilReady = false;
+		// Check cooldowns
+		if (triggerCooldown || recoilCooldown) return;
+		triggerCooldown = true;
+		recoilCooldown = true;
 
 		StartCoroutine(AnimateTrigger());
 		StartCoroutine(AnimateRecoil());
@@ -55,18 +55,18 @@ public class FireAction : MonoBehaviour
 		rb.AddForce(SpawnPoint.forward * FiringForce, ForceMode.Impulse);
 	}
 
-	IEnumerator AnimateRecoil()
-	{
-		yield return StartCoroutine(Tween(RecoilStart, RecoilEnd, RecoilTime));
-		yield return StartCoroutine(Tween(RecoilEnd, RecoilStart, RecoilReturnTime));
-		recoilReady = false;
-	}
-
 	IEnumerator AnimateTrigger()
 	{
 		yield return StartCoroutine(Tween(TriggerPullStart, TriggerPullEnd, TriggerPullTime));
 		yield return StartCoroutine(Tween(TriggerPullEnd, TriggerPullStart, TriggerReturnTime));
-		triggerReady = false;
+		triggerCooldown = false;
+	}
+
+	IEnumerator AnimateRecoil()
+	{
+		yield return StartCoroutine(Tween(RecoilStart, RecoilEnd, RecoilTime));
+		yield return StartCoroutine(Tween(RecoilEnd, RecoilStart, RecoilReturnTime));
+		recoilCooldown = false;
 	}
 
 	IEnumerator Tween(Transform from, Transform to, float duration)
