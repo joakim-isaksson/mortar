@@ -1,15 +1,11 @@
-﻿//#define _DEBUG_CONTROLLER_
+﻿// Uncomment to test without VR controllers
+//#define _DEBUG_CONTROLLER_
 
 using UnityEngine;
 using System.Collections;
 
 public class CannonRotator : MonoBehaviour
 {
-	float angle;
-	bool grabbed;
-	SteamVR_TrackedObject controller;
-	float nominalDist;
-
 	public Component control;
 	public Component wheel;
 	public Component cannon;
@@ -18,14 +14,23 @@ public class CannonRotator : MonoBehaviour
 	public float maxAngularSpeed;
 	public float minAngle, maxAngle;
 
-	// Use this for initialization
+	float angle;
+	bool grabbed;
+	SteamVR_TrackedObject controller;
+	float nominalDist;
+	int axisIndex;
+
 	void Start()
 	{
 		Vector3 handleLocalPos = control.transform.InverseTransformPoint(transform.position);
 		nominalDist = new Vector2(handleLocalPos.x, handleLocalPos.y).magnitude;
+
+		for (int i = 0; i < 3; i++)
+		{
+			if (axis[i] != 0) axisIndex = i;
+		}
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
 		if (grabbed)
@@ -59,20 +64,15 @@ public class CannonRotator : MonoBehaviour
 			float maxAngSpeedPerFrame = maxAngularSpeed * Time.deltaTime * f;
 			angleDiff = Mathf.Clamp(angleDiff, -maxAngSpeedPerFrame, maxAngSpeedPerFrame);
 
-			/*
-			for (int i = 0; i < 3; i++)
-			{
-				if (axis[i] != 0)
-				{
-					float a = cannon.transform.eulerAngles[i] + axis[i] * angleDiff * multiplier;
-					//Debug.Log("a: " + a);
-				}
-			}
-			*/
+			float curAngle = cannon.transform.eulerAngles[axisIndex];
+
+			float nextAngle = curAngle + axis[axisIndex] * angleDiff * multiplier;
+			if (nextAngle > maxAngle) nextAngle = maxAngle;
+			else if (nextAngle < minAngle) nextAngle = minAngle;
+
+			angleDiff = (nextAngle - curAngle) / (axis[axisIndex] * multiplier);
 
 			wheel.transform.eulerAngles = new Vector3(wheel.transform.eulerAngles.x, wheel.transform.eulerAngles.y, wheel.transform.eulerAngles.z + angleDiff);
-			//cannon.transform.eulerAngles = cannon.transform.eulerAngles + axis * angleDiff * multiplier;
-
 			cannon.transform.Rotate(axis * angleDiff * multiplier);
 		}
 	}
@@ -96,7 +96,6 @@ public class CannonRotator : MonoBehaviour
 #if (!_DEBUG_CONTROLLER_)
 						SteamVR_Controller.Input((int)controller.index).TriggerHapticPulse(3999);
 #endif
-						Debug.Log("grabbed");
 					}
 				}
 			}
@@ -114,7 +113,5 @@ public class CannonRotator : MonoBehaviour
 
 		grabbed = false;
 		controller = null;
-
-		Debug.Log("ungrabbed");
 	}
 }
