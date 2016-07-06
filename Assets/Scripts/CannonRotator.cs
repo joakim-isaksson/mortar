@@ -29,6 +29,15 @@ public class CannonRotator : MonoBehaviour
 		{
 			if (Axis[i] != 0) axisIndex = i;
 		}
+
+		angle = Cannon.transform.localEulerAngles[axisIndex];
+
+		if (MinAngle > MaxAngle)
+		{
+			float tmp = MinAngle;
+			MinAngle = MaxAngle;
+			MaxAngle = tmp;
+		}
 	}
 
 	void Update()
@@ -64,16 +73,23 @@ public class CannonRotator : MonoBehaviour
 			float maxAngSpeedPerFrame = MaxAngularSpeed * Time.deltaTime * f;
 			angleDiff = Mathf.Clamp(angleDiff, -maxAngSpeedPerFrame, maxAngSpeedPerFrame);
 
-			float curAngle = Cannon.transform.eulerAngles[axisIndex];
-
-			float nextAngle = curAngle + Axis[axisIndex] * angleDiff * Multiplier;
+			float nextAngle = angle + Axis[axisIndex] * angleDiff * Multiplier;
 			if (nextAngle > MaxAngle) nextAngle = MaxAngle;
 			else if (nextAngle < MinAngle) nextAngle = MinAngle;
 
-			angleDiff = (nextAngle - curAngle) / (Axis[axisIndex] * Multiplier);
+			angleDiff = (nextAngle - angle) / (Axis[axisIndex] * Multiplier);
 
-			Wheel.transform.eulerAngles = new Vector3(Wheel.transform.eulerAngles.x, Wheel.transform.eulerAngles.y, Wheel.transform.eulerAngles.z + angleDiff);
-			Cannon.transform.Rotate(Axis * angleDiff * Multiplier);
+			angle = nextAngle;
+
+			Wheel.transform.localEulerAngles = Wheel.transform.localEulerAngles + new Vector3(0, 0, angleDiff);
+
+			Vector3 preRot = Cannon.transform.localEulerAngles;
+
+			// Things might break here if axis == -1. If they do multiply the relevant angle by -1.
+			Cannon.transform.localEulerAngles = Axis * angle;
+
+			Debug.Log("pre: " + preRot.ToString("f4") + ", post: " + Cannon.transform.localEulerAngles.ToString("f4") + ", angle: " + angle);
+
 		}
 	}
 
