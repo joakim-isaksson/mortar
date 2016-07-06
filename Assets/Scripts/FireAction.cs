@@ -12,7 +12,13 @@ public class FireAction : MonoBehaviour
 	public float TriggerPullTime;
 	public float TriggerReturnTime;
 
-	bool cooldown;
+	public Transform RecoilStart;
+	public Transform RecoilEnd;
+	public float RecoilTime;
+	public float RecoilReturnTime;
+
+	bool triggerReady;
+	bool recoilReady;
 
 	public void OnTriggerStay(Collider other)
 	{
@@ -31,9 +37,10 @@ public class FireAction : MonoBehaviour
 
 	void TryToFire()
 	{
-		// Check cooldown
-		if (cooldown) return;
-		cooldown = true;
+		// Check that recoil is over and trigger has returned
+		if (!triggerReady || !recoilReady) return;
+		triggerReady = false;
+		recoilReady = false;
 
 		StartCoroutine(AnimateTrigger());
 		SpawnMissile();
@@ -48,9 +55,16 @@ public class FireAction : MonoBehaviour
 
 	IEnumerator AnimateTrigger()
 	{
+		yield return StartCoroutine(Tween(RecoilStart, RecoilEnd, RecoilTime));
+		yield return StartCoroutine(Tween(RecoilEnd, RecoilStart, RecoilReturnTime));
+		triggerReady = false;
+	}
+
+	IEnumerator AnimateRecoil()
+	{
 		yield return StartCoroutine(Tween(TriggerPullStart, TriggerPullEnd, TriggerPullTime));
 		yield return StartCoroutine(Tween(TriggerPullEnd, TriggerPullStart, TriggerReturnTime));
-		cooldown = false;
+		recoilReady = false;
 	}
 
 	IEnumerator Tween(Transform from, Transform to, float duration)
