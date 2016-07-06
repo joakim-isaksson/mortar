@@ -6,13 +6,13 @@ using System.Collections;
 
 public class CannonRotator : MonoBehaviour
 {
-	public Component control;
-	public Component wheel;
-	public Component cannon;
-	public Vector3 axis;
-	public float multiplier;
-	public float maxAngularSpeed;
-	public float minAngle, maxAngle;
+	public Component Control;
+	public Component Wheel;
+	public Component Cannon;
+	public Vector3 Axis;
+	public float Multiplier;
+	public float MaxAngularSpeed;
+	public float MinAngle, MaxAngle;
 
 	float angle;
 	bool grabbed;
@@ -22,12 +22,12 @@ public class CannonRotator : MonoBehaviour
 
 	void Start()
 	{
-		Vector3 handleLocalPos = control.transform.InverseTransformPoint(transform.position);
+		Vector3 handleLocalPos = Control.transform.InverseTransformPoint(transform.position);
 		nominalDist = new Vector2(handleLocalPos.x, handleLocalPos.y).magnitude;
 
 		for (int i = 0; i < 3; i++)
 		{
-			if (axis[i] != 0) axisIndex = i;
+			if (Axis[i] != 0) axisIndex = i;
 		}
 	}
 
@@ -50,7 +50,7 @@ public class CannonRotator : MonoBehaviour
 			}
 #endif
 
-			Vector3 controllerLocalPos = control.transform.InverseTransformPoint(controller.transform.position);
+			Vector3 controllerLocalPos = Control.transform.InverseTransformPoint(controller.transform.position);
 			Vector2 toControllerDir = new Vector2(controllerLocalPos.x, controllerLocalPos.y);
 			float controllerDist = toControllerDir.magnitude;
 			toControllerDir /= controllerDist;
@@ -58,22 +58,22 @@ public class CannonRotator : MonoBehaviour
 			float angleController = Mathf.Rad2Deg * Mathf.Acos(Vector2.Dot(new Vector2(0, 1), toControllerDir));
 			float sign = Mathf.Sign(Vector3.Cross(new Vector3(0, 1, 0), new Vector3(toControllerDir.x, toControllerDir.y, 0)).z);
 
-			float angleDiff = Mathf.DeltaAngle(wheel.transform.eulerAngles.z, angleController * sign);
+			float angleDiff = Mathf.DeltaAngle(Wheel.transform.eulerAngles.z, angleController * sign);
 
 			float f = Mathf.Clamp(controllerDist / nominalDist, 0, 1);
-			float maxAngSpeedPerFrame = maxAngularSpeed * Time.deltaTime * f;
+			float maxAngSpeedPerFrame = MaxAngularSpeed * Time.deltaTime * f;
 			angleDiff = Mathf.Clamp(angleDiff, -maxAngSpeedPerFrame, maxAngSpeedPerFrame);
 
-			float curAngle = cannon.transform.eulerAngles[axisIndex];
+			float curAngle = Cannon.transform.eulerAngles[axisIndex];
 
-			float nextAngle = curAngle + axis[axisIndex] * angleDiff * multiplier;
-			if (nextAngle > maxAngle) nextAngle = maxAngle;
-			else if (nextAngle < minAngle) nextAngle = minAngle;
+			float nextAngle = curAngle + Axis[axisIndex] * angleDiff * Multiplier;
+			if (nextAngle > MaxAngle) nextAngle = MaxAngle;
+			else if (nextAngle < MinAngle) nextAngle = MinAngle;
 
-			angleDiff = (nextAngle - curAngle) / (axis[axisIndex] * multiplier);
+			angleDiff = (nextAngle - curAngle) / (Axis[axisIndex] * Multiplier);
 
-			wheel.transform.eulerAngles = new Vector3(wheel.transform.eulerAngles.x, wheel.transform.eulerAngles.y, wheel.transform.eulerAngles.z + angleDiff);
-			cannon.transform.Rotate(axis * angleDiff * multiplier);
+			Wheel.transform.eulerAngles = new Vector3(Wheel.transform.eulerAngles.x, Wheel.transform.eulerAngles.y, Wheel.transform.eulerAngles.z + angleDiff);
+			Cannon.transform.Rotate(Axis * angleDiff * Multiplier);
 		}
 	}
 
