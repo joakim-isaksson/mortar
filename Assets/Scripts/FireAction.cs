@@ -7,11 +7,13 @@ public class FireAction : MonoBehaviour
 	public GameObject MissilePrefab;
 	public float FiringForce;
 
+	public Transform TriggerHandle;
 	public Transform TriggerPullStart;
 	public Transform TriggerPullEnd;
 	public float TriggerPullTime;
 	public float TriggerReturnTime;
 
+	public Transform BarrelTip;
 	public Transform RecoilStart;
 	public Transform RecoilEnd;
 	public float RecoilTime;
@@ -57,19 +59,19 @@ public class FireAction : MonoBehaviour
 
 	IEnumerator AnimateTrigger()
 	{
-		yield return StartCoroutine(Tween(TriggerPullStart, TriggerPullEnd, TriggerPullTime));
-		yield return StartCoroutine(Tween(TriggerPullEnd, TriggerPullStart, TriggerReturnTime));
+		yield return StartCoroutine(Tween(TriggerHandle, TriggerPullStart, TriggerPullEnd, TriggerPullTime));
+		yield return StartCoroutine(Tween(TriggerHandle, TriggerPullEnd, TriggerPullStart, TriggerReturnTime));
 		triggerCooldown = false;
 	}
 
 	IEnumerator AnimateRecoil()
 	{
-		yield return StartCoroutine(Tween(RecoilStart, RecoilEnd, RecoilTime));
-		yield return StartCoroutine(Tween(RecoilEnd, RecoilStart, RecoilReturnTime));
+		yield return StartCoroutine(Tween(BarrelTip, RecoilStart, RecoilEnd, RecoilTime));
+		yield return StartCoroutine(Tween(BarrelTip, RecoilEnd, RecoilStart, RecoilReturnTime));
 		recoilCooldown = false;
 	}
 
-	IEnumerator Tween(Transform from, Transform to, float duration)
+	IEnumerator Tween(Transform target, Transform from, Transform to, float duration)
 	{
 		float passed = 0;
 		float time = 0;
@@ -77,7 +79,7 @@ public class FireAction : MonoBehaviour
 		{
 			passed += Time.deltaTime;
 			time = passed / duration;
-			transform.position = Vector3.Lerp(from.position, to.position, time);
+			target.position = Vector3.Lerp(from.position, to.position, time);
 			yield return null;
 		}
 	}
