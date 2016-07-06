@@ -43,6 +43,8 @@ public class FireAction : MonoBehaviour
 		recoilReady = false;
 
 		StartCoroutine(AnimateTrigger());
+		StartCoroutine(AnimateRecoil());
+
 		SpawnMissile();
 	}
 
@@ -53,18 +55,18 @@ public class FireAction : MonoBehaviour
 		rb.AddForce(SpawnPoint.forward * FiringForce, ForceMode.Impulse);
 	}
 
-	IEnumerator AnimateTrigger()
+	IEnumerator AnimateRecoil()
 	{
 		yield return StartCoroutine(Tween(RecoilStart, RecoilEnd, RecoilTime));
 		yield return StartCoroutine(Tween(RecoilEnd, RecoilStart, RecoilReturnTime));
-		triggerReady = false;
+		recoilReady = false;
 	}
 
-	IEnumerator AnimateRecoil()
+	IEnumerator AnimateTrigger()
 	{
 		yield return StartCoroutine(Tween(TriggerPullStart, TriggerPullEnd, TriggerPullTime));
 		yield return StartCoroutine(Tween(TriggerPullEnd, TriggerPullStart, TriggerReturnTime));
-		recoilReady = false;
+		triggerReady = false;
 	}
 
 	IEnumerator Tween(Transform from, Transform to, float duration)
