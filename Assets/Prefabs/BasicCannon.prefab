@@ -27,6 +27,7 @@ GameObject:
   - 4: {fileID: 478784}
   - 33: {fileID: 3336614}
   - 23: {fileID: 2388402}
+  - 114: {fileID: 11495528}
   m_Layer: 0
   m_Name: Tip
   m_TagString: Untagged
@@ -504,6 +505,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 465904}
   - 65: {fileID: 6588982}
+  - 114: {fileID: 11446056}
+  - 114: {fileID: 11436026}
   m_Layer: 0
   m_Name: Trigger
   m_TagString: Untagged
@@ -2076,19 +2079,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5939d7d60d71aca4488b741708822c1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnPoint: {fileID: 0}
+  MissileSpawnPoint: {fileID: 0}
   MissilePrefab: {fileID: 0}
-  FiringForce: 0
-  TriggerHandle: {fileID: 0}
-  TriggerPullStart: {fileID: 0}
-  TriggerPullEnd: {fileID: 0}
-  TriggerPullTime: 0
-  TriggerReturnTime: 0
-  BarrelTip: {fileID: 0}
-  RecoilStart: {fileID: 0}
-  RecoilEnd: {fileID: 0}
-  RecoilTime: 0
-  RecoilReturnTime: 0
+  MissileForce: 0
+  TriggerAnimator: {fileID: 0}
+  BarrelAnimator: {fileID: 0}
 --- !u!114 &11420308
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2101,6 +2096,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotator: {fileID: 11479462}
+--- !u!114 &11436026
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 172864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbbc52702ddfcc04e889b2c073dfea68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FireAction: {fileID: 11462154}
+--- !u!114 &11446056
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 172864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f70ecba821b46c34194ccec87343fe7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PointA: {fileID: 433698}
+  PointB: {fileID: 487670}
+  TimeFromAToB: 0.5
+  TimeFromBToA: 0
 --- !u!114 &11462154
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2112,19 +2134,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5939d7d60d71aca4488b741708822c1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnPoint: {fileID: 420120}
+  MissileSpawnPoint: {fileID: 420120}
   MissilePrefab: {fileID: 164112, guid: a6a16cb191cdd1a4a8eefc4d68600090, type: 2}
-  FiringForce: 40
-  TriggerHandle: {fileID: 465904}
-  TriggerPullStart: {fileID: 433698}
-  TriggerPullEnd: {fileID: 487670}
-  TriggerPullTime: 0.5
-  TriggerReturnTime: 2
-  BarrelTip: {fileID: 478784}
-  RecoilStart: {fileID: 475082}
-  RecoilEnd: {fileID: 433238}
-  RecoilTime: 0.5
-  RecoilReturnTime: 2
+  MissileForce: 50
+  TriggerAnimator: {fileID: 11446056}
+  BarrelAnimator: {fileID: 11495528}
 --- !u!114 &11473524
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2188,6 +2202,21 @@ MonoBehaviour:
   MaxAngularSpeed: 1500
   MinAngle: -Infinity
   MaxAngle: Infinity
+--- !u!114 &11495528
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 105804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f70ecba821b46c34194ccec87343fe7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PointA: {fileID: 475082}
+  PointB: {fileID: 433238}
+  TimeFromAToB: 0.5
+  TimeFromBToA: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
