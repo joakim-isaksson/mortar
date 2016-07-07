@@ -78,8 +78,6 @@ public class Teleport : MonoBehaviour
 			float eyeAngle = SteamVR_Render.Top().head.eulerAngles.y;
 			float targetAngle = location.eulerAngles.y;
 
-
-
 			//Vector3 headPosOnGround = new Vector3(SteamVR_Render.Top().head.localPosition.x, 0.0f, SteamVR_Render.Top().head.localPosition.z);
 			//t.rotation = location.rotation;
 			t.position = location.position;
