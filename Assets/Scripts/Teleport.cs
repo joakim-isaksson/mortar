@@ -77,7 +77,7 @@ public class Teleport : MonoBehaviour
 			if (t == null) return;
 
 			//Vector3 headPosOnGround = new Vector3(SteamVR_Render.Top().head.localPosition.x, 0.0f, SteamVR_Render.Top().head.localPosition.z);
-			if (locationData.forceOrientation) t.rotation = location.rotation;
+			t.rotation = location.rotation;
 			t.position = location.position;
 			//t.position = position.position - new Vector3(t.GetChild(0).localPosition.x, 0f, t.GetChild(0).localPosition.z) - headPosOnGround;
 		}
