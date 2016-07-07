@@ -48,10 +48,10 @@ public class Teleport : MonoBehaviour
 		switch (checkInput())
 		{
 			case Action.PREVIOUS:
-				index = --currentIndex % transform.childCount;
+				index = mod(--currentIndex, transform.childCount);
 				break;
 			case Action.NEXT:
-				index = ++currentIndex % transform.childCount;
+				index = mod(++currentIndex, transform.childCount);
 				break;
 		}
 
@@ -62,4 +62,6 @@ public class Teleport : MonoBehaviour
 			camera.transform.position = position.position;
 		}
 	}
+
+	private int mod(int k, int n) { return ((k %= n) < 0) ? k + n : k; }
 }
