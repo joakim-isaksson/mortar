@@ -25,6 +25,9 @@ public class FireAction : MonoBehaviour
 		TriggerAnimator.StartAnimation();
 		BarrelAnimator.StartAnimation();
 		SpawnMissile();
+
+		// Vibrate controllers
+		StartCoroutine(HapticUtils.LongVibrationBoth(1, 1));
 	}
 
 	void SpawnMissile()
