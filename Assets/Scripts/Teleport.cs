@@ -70,19 +70,16 @@ public class Teleport : MonoBehaviour
 
 		if (index != -1)
 		{
-			Transform position = transform.GetChild(index);
+			Transform location = transform.GetChild(index);
+			TeleportLocation locationData = location.GetComponent<TeleportLocation>();
 
 			var t = reference;
 			if (t == null) return;
 
-			//Debug.Log("origin: " + t.position.ToString("f4") + " head: " + SteamVR_Render.Top().head.position.ToString("f4"));
-
 			//Vector3 headPosOnGround = new Vector3(SteamVR_Render.Top().head.localPosition.x, 0.0f, SteamVR_Render.Top().head.localPosition.z);
-			//t.rotation = position.rotation;
-			t.position = position.position;
+			if (locationData.forceOrientation) t.rotation = location.rotation;
+			t.position = location.position;
 			//t.position = position.position - new Vector3(t.GetChild(0).localPosition.x, 0f, t.GetChild(0).localPosition.z) - headPosOnGround;
-
-			Debug.Log("origin: " + t.position.ToString("f4") + " head: " + SteamVR_Render.Top().head.position.ToString("f4") + ", child: " + t.GetChild(0).position.ToString("f4"));
 		}
 	}
 
