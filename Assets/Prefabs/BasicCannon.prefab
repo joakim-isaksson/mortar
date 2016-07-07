@@ -2217,7 +2217,7 @@ MonoBehaviour:
   TriggerAnimator: {fileID: 11446056}
   BarrelAnimator: {fileID: 11495528}
   blastSource: {fileID: 8236026}
-  blastSound: {fileID: 8300000, guid: 1819250e256695c45b336b699f8a1152, type: 3}
+  blastSound: {fileID: 8300000, guid: c36c1b7fd50adf54c8ac3b480949e6f8, type: 3}
 --- !u!114 &11473524
 MonoBehaviour:
   m_ObjectHideFlags: 1
