@@ -39,10 +39,15 @@ public class Teleport : MonoBehaviour
 		{
 			if (SteamVR_Controller.Input(index).GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
 			{
+				// FIXME implement previous/next
+				/*
 				Vector2 touchLoc = SteamVR_Controller.Input(index).GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad);
 
 				if (touchLoc.x <= -DEADZONE) return Action.PREVIOUS;
 				else if (touchLoc.x >= DEADZONE) return Action.NEXT;
+				*/
+
+				return Action.NEXT;
 			}
 
 		}
@@ -51,7 +56,6 @@ public class Teleport : MonoBehaviour
 
 	void Update()
 	{
-		GameObject camera = GameObject.FindWithTag("MainCamera");
 		int index = -1;
 
 		switch (checkInput())
@@ -66,7 +70,6 @@ public class Teleport : MonoBehaviour
 
 		if (index != -1)
 		{
-			Debug.Log("teleporting to pos " + index);
 			Transform position = transform.GetChild(index);
 
 			var t = reference;
