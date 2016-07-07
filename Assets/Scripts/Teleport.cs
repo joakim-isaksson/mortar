@@ -60,6 +60,8 @@ public class Teleport : MonoBehaviour
 			Debug.Log("teleporting to pos " + index);
 			Transform position = transform.GetChild(index);
 			camera.transform.position = position.position;
+
+			Debug.Log("camera: " + camera.transform.position.ToString("f4"));
 		}
 	}
 
