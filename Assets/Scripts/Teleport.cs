@@ -71,14 +71,19 @@ public class Teleport : MonoBehaviour
 		if (index != -1)
 		{
 			Transform location = transform.GetChild(index);
-			TeleportLocation locationData = location.GetComponent<TeleportLocation>();
 
 			var t = reference;
 			if (t == null) return;
 
+			float eyeAngle = SteamVR_Render.Top().head.eulerAngles.y;
+			float targetAngle = location.eulerAngles.y;
+
+
+
 			//Vector3 headPosOnGround = new Vector3(SteamVR_Render.Top().head.localPosition.x, 0.0f, SteamVR_Render.Top().head.localPosition.z);
-			t.rotation = location.rotation;
+			//t.rotation = location.rotation;
 			t.position = location.position;
+			t.Rotate(0, targetAngle - eyeAngle, 0);
 			//t.position = position.position - new Vector3(t.GetChild(0).localPosition.x, 0f, t.GetChild(0).localPosition.z) - headPosOnGround;
 		}
 	}
