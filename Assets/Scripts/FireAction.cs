@@ -16,6 +16,11 @@ public class FireAction : MonoBehaviour
 	bool triggerCooldown;
 	bool recoilCooldown;
 
+	private static float FireHapticStrength(float t)
+	{
+		return Mathf.Exp(-10 * t);
+	}
+
 	public void Fire()
 	{
 		// Check cooldowns
@@ -27,7 +32,7 @@ public class FireAction : MonoBehaviour
 		SpawnMissile();
 
 		// Vibrate controllers
-		StartCoroutine(HapticUtils.LongVibrationBoth(1, 1));
+		StartCoroutine(HapticUtils.LongVibrationBoth(1, FireHapticStrength));
 	}
 
 	void SpawnMissile()

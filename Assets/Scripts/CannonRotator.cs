@@ -83,8 +83,6 @@ public class CannonRotator : MonoBehaviour
 
 			Wheel.transform.localEulerAngles = Wheel.transform.localEulerAngles + new Vector3(0, 0, angleDiff);
 
-			Vector3 preRot = Cannon.transform.localEulerAngles;
-
 			// Things might break here if axis == -1. If they do multiply the relevant angle by -1.
 			Cannon.transform.localEulerAngles = Axis * angle;
 		}

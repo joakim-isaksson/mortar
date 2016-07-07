@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Teleport : MonoBehaviour
 {
@@ -31,11 +32,11 @@ public class Teleport : MonoBehaviour
 		var leftIndex = SteamVR_Controller.GetDeviceIndex(SteamVR_Controller.DeviceRelation.Leftmost);
 		var rightIndex = SteamVR_Controller.GetDeviceIndex(SteamVR_Controller.DeviceRelation.Rightmost);
 
-		var index = -1;
-		if (leftIndex != -1) index = leftIndex;
-		else if (rightIndex != -1) index = rightIndex;
+		List<int> indices = new List<int>();
+		if (leftIndex != -1) indices.Add(leftIndex);
+		if (rightIndex != -1) indices.Add(rightIndex);
 
-		if (index != -1)
+		foreach (int index in indices)
 		{
 			if (SteamVR_Controller.Input(index).GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
 			{
@@ -49,7 +50,6 @@ public class Teleport : MonoBehaviour
 
 				return Action.NEXT;
 			}
-
 		}
 		return Action.NOTHING;
 	}
@@ -75,9 +75,14 @@ public class Teleport : MonoBehaviour
 			var t = reference;
 			if (t == null) return;
 
-			Vector3 headPosOnGround = new Vector3(SteamVR_Render.Top().head.localPosition.x, 0.0f, SteamVR_Render.Top().head.localPosition.z);
-			t.rotation = position.rotation;
-			t.position = position.position - new Vector3(t.GetChild(0).localPosition.x, 0f, t.GetChild(0).localPosition.z) - headPosOnGround;
+			//Debug.Log("origin: " + t.position.ToString("f4") + " head: " + SteamVR_Render.Top().head.position.ToString("f4"));
+
+			//Vector3 headPosOnGround = new Vector3(SteamVR_Render.Top().head.localPosition.x, 0.0f, SteamVR_Render.Top().head.localPosition.z);
+			//t.rotation = position.rotation;
+			t.position = position.position;
+			//t.position = position.position - new Vector3(t.GetChild(0).localPosition.x, 0f, t.GetChild(0).localPosition.z) - headPosOnGround;
+
+			Debug.Log("origin: " + t.position.ToString("f4") + " head: " + SteamVR_Render.Top().head.position.ToString("f4") + ", child: " + t.GetChild(0).position.ToString("f4"));
 		}
 	}
 
