@@ -32,8 +32,16 @@ public class MissileController : MonoBehaviour
 	{
 		float distanceToPlayer = Vector3.Distance(transform.position, playerPosition.position);
 
-		if (distanceToPlayer < FarDistance) audioSource.PlayOneShot(ExplosionFar);
-		else audioSource.PlayOneShot(ExplosionFar);
+		if (distanceToPlayer < FarDistance)
+		{
+			Debug.Log("EXPLODING NEAR");
+			audioSource.PlayOneShot(ExplosionNear);
+		}
+		else
+		{
+			Debug.Log("EXPLODING FAR");
+			audioSource.PlayOneShot(ExplosionFar);
+		}
 
 		Destroy(gameObject);
 	}

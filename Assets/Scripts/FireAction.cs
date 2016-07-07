@@ -13,6 +13,9 @@ public class FireAction : MonoBehaviour
 	public AudioSource blastSource;
 	public AudioClip blastSound;
 
+	public Light muzzleFlash;
+	public float flashDuration;
+
 	bool triggerCooldown;
 	bool recoilCooldown;
 
@@ -26,7 +29,11 @@ public class FireAction : MonoBehaviour
 		// Check cooldowns
 		if (TriggerAnimator.Animating || BarrelAnimator.Animating) return;
 
+		// SFX
 		blastSource.PlayOneShot(blastSound);
+		StartCoroutine(MuzzleFlash());
+
+		// Animations
 		TriggerAnimator.StartAnimation();
 		BarrelAnimator.StartAnimation();
 		SpawnMissile();
@@ -40,5 +47,12 @@ public class FireAction : MonoBehaviour
 		GameObject missile = (GameObject)Instantiate(MissilePrefab, MissileSpawnPoint.position, MissileSpawnPoint.rotation);
 		Rigidbody rb = missile.GetComponent<Rigidbody>();
 		rb.AddForce(MissileSpawnPoint.forward * MissileForce, ForceMode.Impulse);
+	}
+
+	IEnumerator MuzzleFlash()
+	{
+		muzzleFlash.enabled = true;
+		yield return new WaitForSeconds(flashDuration);
+		muzzleFlash.enabled = false;
 	}
 }
