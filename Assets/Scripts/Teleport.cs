@@ -3,13 +3,21 @@ using System.Collections;
 
 public class Teleport : MonoBehaviour
 {
+	enum Action
+	{
+		NOTHING, NEXT, PREVIOUS
+	}
+
+	private const float DEADZONE = 0.1f;
+
+	int currentIndex;
 
 	void Start()
 	{
 
 	}
 
-	private void checkInput()
+	private Action checkInput()
 	{
 		var leftIndex = SteamVR_Controller.GetDeviceIndex(SteamVR_Controller.DeviceRelation.Leftmost);
 		var rightIndex = SteamVR_Controller.GetDeviceIndex(SteamVR_Controller.DeviceRelation.Rightmost);
@@ -23,23 +31,35 @@ public class Teleport : MonoBehaviour
 			if (SteamVR_Controller.Input(index).GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
 			{
 				Vector2 touchLoc = SteamVR_Controller.Input(index).GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad);
-				Debug.Log("press, loc: " + touchLoc.ToString("f4"));
+
+				if (touchLoc.x <= -DEADZONE) return Action.PREVIOUS;
+				else if (touchLoc.x >= DEADZONE) return Action.NEXT;
 			}
 
 		}
-
+		return Action.NOTHING;
 	}
 
 	void Update()
 	{
-
 		GameObject camera = GameObject.FindWithTag("MainCamera");
+		int index = -1;
 
-		checkInput();
-
-		foreach (Transform loc in transform)
+		switch (checkInput())
 		{
+			case Action.PREVIOUS:
+				index = --currentIndex % transform.childCount;
+				break;
+			case Action.NEXT:
+				index = ++currentIndex % transform.childCount;
+				break;
+		}
 
+		if (index != -1)
+		{
+			Debug.Log("teleporting to pos " + index);
+			Transform position = transform.GetChild(index);
+			camera.transform.position = position.position;
 		}
 	}
 }
