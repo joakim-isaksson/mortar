@@ -14,6 +14,7 @@ GameObject:
   - 65: {fileID: 6587158}
   - 114: {fileID: 11405298}
   - 82: {fileID: 8281340}
+  - 82: {fileID: 8261650}
   m_Layer: 0
   m_Name: Missile
   m_TagString: Untagged
@@ -94,6 +95,80 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.0015, y: 0.0015, z: 0.007}
   m_Center: {x: 1.7462298e-10, y: -8.731149e-11, z: 0.0015033791}
+--- !u!82 &8261650
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 164112}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 308fadb2c72019941b7d0bb5193100e1, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 0
+  MaxDistance: 1000
+  Pan2D: 0
+  rolloffMode: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!82 &8281340
 AudioSource:
   m_ObjectHideFlags: 1
@@ -103,7 +178,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 2800d464d6b2b80458797663c2c0bf5f, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -244,8 +319,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fcc6a302146dea4e8ef2a3a27984513, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ExplosionNear: {fileID: 8300000, guid: 2800d464d6b2b80458797663c2c0bf5f, type: 3}
-  ExplosionFar: {fileID: 8300000, guid: 308fadb2c72019941b7d0bb5193100e1, type: 3}
+  ExplosionNear: {fileID: 8281340}
+  ExplosionFar: {fileID: 8261650}
   FarDistance: 100
 --- !u!1001 &100100000
 Prefab:

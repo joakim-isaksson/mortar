@@ -3,18 +3,16 @@ using System.Collections;
 
 public class MissileController : MonoBehaviour
 {
-	public AudioClip ExplosionNear;
-	public AudioClip ExplosionFar;
+	public AudioSource ExplosionNear;
+	public AudioSource ExplosionFar;
 	public float FarDistance;
 
 	Rigidbody rigidBody;
-	AudioSource audioSource;
 	Transform playerPosition;
 
 	void Awake()
 	{
 		rigidBody = GetComponent<Rigidbody>();
-		audioSource = GetComponent<AudioSource>();
 		playerPosition = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 	}
 
@@ -31,16 +29,14 @@ public class MissileController : MonoBehaviour
 	void Explode()
 	{
 		float distanceToPlayer = Vector3.Distance(transform.position, playerPosition.position);
+		if (distanceToPlayer < FarDistance) PlayAndDestroy(ExplosionNear);
+		else PlayAndDestroy(ExplosionNear);
+	}
 
-		if (distanceToPlayer < FarDistance)
-		{
-			audioSource.PlayOneShot(ExplosionNear);
-		}
-		else
-		{
-			audioSource.PlayOneShot(ExplosionFar);
-		}
-
-		//Destroy(gameObject);
+	IEnumerator PlayAndDestroy(AudioSource source)
+	{
+		source.Play();
+		yield return new WaitForSeconds(source.clip.length);
+		Destroy(gameObject);
 	}
 }
