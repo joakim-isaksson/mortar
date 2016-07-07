@@ -2078,7 +2078,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 89a8f52ee1f9628429f6161f978f6a45, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -2159,6 +2159,7 @@ MonoBehaviour:
   MissileForce: 0
   TriggerAnimator: {fileID: 0}
   BarrelAnimator: {fileID: 0}
+  blastSource: {fileID: 0}
   blastSound: {fileID: 0}
 --- !u!114 &11420308
 MonoBehaviour:
@@ -2215,7 +2216,8 @@ MonoBehaviour:
   MissileForce: 50
   TriggerAnimator: {fileID: 11446056}
   BarrelAnimator: {fileID: 11495528}
-  blastSound: {fileID: 8236026}
+  blastSource: {fileID: 8236026}
+  blastSound: {fileID: 8300000, guid: 1819250e256695c45b336b699f8a1152, type: 3}
 --- !u!114 &11473524
 MonoBehaviour:
   m_ObjectHideFlags: 1
