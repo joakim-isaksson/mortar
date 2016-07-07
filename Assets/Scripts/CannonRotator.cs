@@ -87,9 +87,6 @@ public class CannonRotator : MonoBehaviour
 
 			// Things might break here if axis == -1. If they do multiply the relevant angle by -1.
 			Cannon.transform.localEulerAngles = Axis * angle;
-
-			Debug.Log("pre: " + preRot.ToString("f4") + ", post: " + Cannon.transform.localEulerAngles.ToString("f4") + ", angle: " + angle);
-
 		}
 	}
 
