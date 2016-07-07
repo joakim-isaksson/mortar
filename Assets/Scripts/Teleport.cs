@@ -12,6 +12,15 @@ public class Teleport : MonoBehaviour
 
 	int currentIndex;
 
+	Transform reference
+	{
+		get
+		{
+			var top = SteamVR_Render.Top();
+			return (top != null) ? top.origin : null;
+		}
+	}
+
 	void Start()
 	{
 
@@ -60,10 +69,11 @@ public class Teleport : MonoBehaviour
 			Debug.Log("teleporting to pos " + index);
 			Transform position = transform.GetChild(index);
 
+			var t = reference;
+			if (t == null) return;
 
-			Debug.Log("pre camera: " + camera.transform.position.ToString("f4"));
-			camera.transform.position = position.position;
-			Debug.Log("post camera: " + camera.transform.position.ToString("f4"));
+			Vector3 headPosOnGround = new Vector3(SteamVR_Render.Top().head.localPosition.x, 0.0f, SteamVR_Render.Top().head.localPosition.z);
+			t.position = position.position - new Vector3(t.GetChild(0).localPosition.x, 0f, t.GetChild(0).localPosition.z) - headPosOnGround;
 		}
 	}
 
