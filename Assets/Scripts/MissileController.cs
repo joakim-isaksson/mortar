@@ -30,7 +30,7 @@ public class MissileController : MonoBehaviour
 	{
 		float distanceToPlayer = Vector3.Distance(transform.position, playerPosition.position);
 		if (distanceToPlayer < FarDistance) StartCoroutine(PlayAndDestroy(ExplosionNear));
-		else StartCoroutine(PlayAndDestroy(ExplosionNear));
+		else StartCoroutine(PlayAndDestroy(ExplosionFar));
 	}
 
 	IEnumerator PlayAndDestroy(AudioSource source)
