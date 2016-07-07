@@ -18,7 +18,7 @@ public class FireAction : MonoBehaviour
 
 	private static float FireHapticStrength(float t)
 	{
-		return Mathf.Exp(-4 * t);
+		return Mathf.Exp(-10 * t);
 	}
 
 	public void Fire()
