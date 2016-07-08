@@ -457,6 +457,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28e1320ff2f10d744b80149dcc011e1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CannonPrefab: {fileID: 782370723}
+  Ground: {fileID: 8076872}
 --- !u!4 &637289328
 Transform:
   m_ObjectHideFlags: 0
@@ -470,6 +472,10 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
+--- !u!1 &782370723 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 114942, guid: 8bab3302fc9645543a0f67f0eb560eae, type: 2}
+  m_PrefabInternal: {fileID: 617139941}
 --- !u!1 &855589072
 GameObject:
   m_ObjectHideFlags: 0

@@ -41,7 +41,7 @@ public class FireAction : MonoBehaviour
 
 	public void OnMissileExploded()
 	{
-		Debug.Log("OnMissileExploded");
+		GameManager.OnTurnChange();
 	}
 
 	void Awake()

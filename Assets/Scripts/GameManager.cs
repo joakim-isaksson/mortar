@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 		public Color Color;
 		public string ColorName;
 		public GameObject Cannon;
+		public bool destroyed;
 	}
 
 	private const int NUM_PLAYERS = 2;
@@ -30,6 +31,38 @@ public class GameManager : MonoBehaviour
 	void Update()
 	{
 
+	}
+
+	public void OnTurnChange()
+	{
+		currentPlayerIndex = (currentPlayerIndex + 1) % NUM_PLAYERS;
+		Debug.Log("changing turn, next: " + currentPlayerIndex);
+	}
+
+	public void OnCannonDestroyed(GameObject cannon)
+	{
+		foreach (Player p in players)
+		{
+			if (p.Cannon == cannon)
+			{
+				p.destroyed = true;
+				break;
+			}
+		}
+
+		// Check game over condition
+		int numDestroyedPlayers = 0;
+		Player undestroyedPlayer = null;
+		foreach (Player p in players)
+		{
+			if (p.destroyed) numDestroyedPlayers++;
+			else undestroyedPlayer = p;
+		}
+
+		if (numDestroyedPlayers == NUM_PLAYERS - 1 && undestroyedPlayer != null)
+		{
+
+		}
 	}
 
 	private void initGame()
@@ -62,6 +95,7 @@ public class GameManager : MonoBehaviour
 		}
 
 		currentPlayerIndex = Random.Range(0, NUM_PLAYERS);
+		Debug.Log("player [" + players[currentPlayerIndex].Id + ", " + players[currentPlayerIndex].ColorName + "] starts");
 	}
 
 }
