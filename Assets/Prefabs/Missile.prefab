@@ -322,6 +322,9 @@ MonoBehaviour:
   ExplosionNear: {fileID: 8281340}
   ExplosionFar: {fileID: 8261650}
   FarDistance: 100
+  AutoExplodeAtAltitude: 0
+  ExplosionPrefab: {fileID: 100000, guid: 15ca5b8fa431dc04291a79cadcd19874, type: 2}
+  FireAction: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
