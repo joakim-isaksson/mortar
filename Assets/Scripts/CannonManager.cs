@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class CannonManager : MonoBehaviour
+public class CannonManager : MonoBehaviour, IDestroyableObject
 {
 	public Component Barrel;
 	public float BarrelStartAngle;
@@ -14,7 +15,7 @@ public class CannonManager : MonoBehaviour
 		Barrel.transform.rotation = Quaternion.Euler(BarrelStartAngle, 0, 0);
 	}
 
-	public void OnDestroy()
+	public void OnDestroyObject()
 	{
 		gameManager.OnCannonDestroyed(gameObject);
 		Destroy(gameObject);

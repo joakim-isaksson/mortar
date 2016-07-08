@@ -30,15 +30,15 @@ public class MissileController : MonoBehaviour
 		rigidBody.MoveRotation(Quaternion.LookRotation(rigidBody.velocity));
 
 		// Check for automatic explosion
-		if (transform.position.y < AutoExplodeAtAltitude) Explode(transform.position);
+		if (transform.position.y < AutoExplodeAtAltitude) Explode();
 	}
 
 	void OnTriggerEnter(Collider collider)
 	{
-		Explode(collider.transform.position);
+		Explode();
 	}
 
-	void Explode(Vector3 explosionPoint)
+	void Explode()
 	{
 		// Explode only once
 		if (exploding) return;
@@ -46,12 +46,18 @@ public class MissileController : MonoBehaviour
 
 		// Hide the missile and show the explosion
 		meshRenderer.enabled = false;
-		Instantiate(ExplosionPrefab, explosionPoint, Quaternion.identity);
+		Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
 
 		// Play explosion sound depending on the distance from player
 		float distanceToPlayer = Vector3.Distance(transform.position, playerPosition.position);
 		if (distanceToPlayer < FarDistance) StartCoroutine(PlayAndDestroy(ExplosionNear));
 		else StartCoroutine(PlayAndDestroy(ExplosionFar));
+
+		//TODO
+		foreach (IDestroyableObject obj in DestroyableObject.DestroyableObjects)
+		{
+			obj.OnDestroyObject();
+		}
 	}
 
 	IEnumerator PlayAndDestroy(AudioSource source)
