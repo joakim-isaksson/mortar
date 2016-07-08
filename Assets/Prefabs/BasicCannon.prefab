@@ -2255,7 +2255,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5939d7d60d71aca4488b741708822c1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameManager: {fileID: 0}
   MissileSpawnPoint: {fileID: 420120}
   MissilePrefab: {fileID: 164112, guid: a6a16cb191cdd1a4a8eefc4d68600090, type: 2}
   MissileForce: 50
@@ -2265,6 +2264,7 @@ MonoBehaviour:
   blastSound: {fileID: 8300000, guid: c36c1b7fd50adf54c8ac3b480949e6f8, type: 3}
   muzzleFlash: {fileID: 10836986}
   flashDuration: 0.1
+  gameManager: {fileID: 0}
 --- !u!114 &11473524
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2276,8 +2276,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf51d8b089ebf1a4ca61068b8b92060a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  barrel: {fileID: 460606}
-  barrelStartAngle: 45
+  Barrel: {fileID: 460606}
+  BarrelStartAngle: 45
 --- !u!114 &11474156
 MonoBehaviour:
   m_ObjectHideFlags: 1

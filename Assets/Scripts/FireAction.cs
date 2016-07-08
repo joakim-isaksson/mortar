@@ -3,8 +3,6 @@ using System.Collections;
 
 public class FireAction : MonoBehaviour
 {
-	public GameManager GameManager;
-
 	public Transform MissileSpawnPoint;
 	public GameObject MissilePrefab;
 	public float MissileForce;
@@ -20,6 +18,14 @@ public class FireAction : MonoBehaviour
 
 	bool triggerCooldown;
 	bool recoilCooldown;
+
+	public GameManager gameManager;
+
+	void Awake()
+	{
+		gameManager = FindObjectOfType<GameManager>();
+		muzzleFlash.enabled = false;
+	}
 
 	public void Fire()
 	{
@@ -41,12 +47,7 @@ public class FireAction : MonoBehaviour
 
 	public void OnMissileExploded()
 	{
-		GameManager.OnTurnChange();
-	}
-
-	void Awake()
-	{
-		muzzleFlash.enabled = false;
+		gameManager.OnTurnChange();
 	}
 
 	static float FireHapticStrength(float t)
