@@ -27,7 +27,7 @@ public class Teleport : MonoBehaviour
 
 	}
 
-	private Action CheckInput()
+	private Action checkInput()
 	{
 		var leftIndex = SteamVR_Controller.GetDeviceIndex(SteamVR_Controller.DeviceRelation.Leftmost);
 		var rightIndex = SteamVR_Controller.GetDeviceIndex(SteamVR_Controller.DeviceRelation.Rightmost);
@@ -58,13 +58,13 @@ public class Teleport : MonoBehaviour
 	{
 		int index = -1;
 
-		switch (CheckInput())
+		switch (checkInput())
 		{
 			case Action.PREVIOUS:
-				index = Mod(--currentIndex, transform.childCount);
+				index = mod(--currentIndex, transform.childCount);
 				break;
 			case Action.NEXT:
-				index = Mod(++currentIndex, transform.childCount);
+				index = mod(++currentIndex, transform.childCount);
 				break;
 		}
 
@@ -93,5 +93,5 @@ public class Teleport : MonoBehaviour
 		}
 	}
 
-	private int Mod(int k, int n) { return ((k %= n) < 0) ? k + n : k; }
+	private int mod(int k, int n) { return ((k %= n) < 0) ? k + n : k; }
 }

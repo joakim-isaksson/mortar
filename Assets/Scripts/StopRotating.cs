@@ -7,6 +7,6 @@ public class StopRotating : MonoBehaviour
 
 	public void OnTriggerExit(Collider other)
 	{
-		if (other.tag == "Controller") rotator.stopRotating();
+		if (other.tag == "Controller") rotator.StopRotating();
 	}
 }

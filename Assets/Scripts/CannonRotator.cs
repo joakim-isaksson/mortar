@@ -47,14 +47,14 @@ public class CannonRotator : MonoBehaviour
 #if (!_DEBUG_CONTROLLER_)
 			if (controller.index == SteamVR_TrackedObject.EIndex.None)
 			{
-				stopRotating();
+				StopRotating();
 				return;
 			}
 
 			int index = (int)controller.index;
 			if (SteamVR_Controller.Input(index).GetPressUp(SteamVR_Controller.ButtonMask.Trigger))
 			{
-				stopRotating();
+				StopRotating();
 				return;
 			}
 #endif
@@ -113,7 +113,7 @@ public class CannonRotator : MonoBehaviour
 		}
 	}
 
-	public void stopRotating()
+	public void StopRotating()
 	{
 #if (!_DEBUG_CONTROLLER_)
 		if (controller != null && controller.index != SteamVR_TrackedObject.EIndex.None)
