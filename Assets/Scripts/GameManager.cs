@@ -59,9 +59,13 @@ public class GameManager : MonoBehaviour
 			else undestroyedPlayer = p;
 		}
 
-		if (numDestroyedPlayers == NUM_PLAYERS - 1 && undestroyedPlayer != null)
+		if (numDestroyedPlayers == NUM_PLAYERS)
 		{
-
+			// draw
+		}
+		else if (numDestroyedPlayers == NUM_PLAYERS - 1)
+		{
+			// someone won
 		}
 	}
 
