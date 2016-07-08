@@ -36,11 +36,12 @@ public class GameManager : MonoBehaviour
 	public void OnTurnChange()
 	{
 		currentPlayerIndex = (currentPlayerIndex + 1) % NUM_PLAYERS;
-		Debug.Log("changing turn, next: " + currentPlayerIndex);
+
 	}
 
 	public void OnCannonDestroyed(GameObject cannon)
 	{
+		// Mark player as destroyed
 		foreach (Player p in players)
 		{
 			if (p.Cannon == cannon)
