@@ -9,4 +9,9 @@ public class DestroyableObject : MonoBehaviour
 	{
 		DestroyableObjects.Add(gameObject);
 	}
+
+	void OnDestroy()
+	{
+		DestroyableObjects.Remove(gameObject);
+	}
 }
