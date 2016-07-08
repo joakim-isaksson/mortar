@@ -3,6 +3,8 @@ using System.Collections;
 
 public class FireAction : MonoBehaviour
 {
+	public GameManager GameManager;
+
 	public Transform MissileSpawnPoint;
 	public GameObject MissilePrefab;
 	public float MissileForce;
@@ -37,6 +39,11 @@ public class FireAction : MonoBehaviour
 		StartCoroutine(HapticUtils.LongVibrationBoth(1, FireHapticStrength));
 	}
 
+	public void OnMissileExploded()
+	{
+		Debug.Log("OnMissileExploded");
+	}
+
 	void Awake()
 	{
 		muzzleFlash.enabled = false;
@@ -50,6 +57,10 @@ public class FireAction : MonoBehaviour
 	void SpawnMissile()
 	{
 		GameObject missile = (GameObject)Instantiate(MissilePrefab, MissileSpawnPoint.position, MissileSpawnPoint.rotation);
+
+		MissileController missileController = missile.GetComponent<MissileController>();
+		missileController.FireAction = this;
+
 		Rigidbody rb = missile.GetComponent<Rigidbody>();
 		rb.AddForce(MissileSpawnPoint.forward * MissileForce, ForceMode.Impulse);
 	}
