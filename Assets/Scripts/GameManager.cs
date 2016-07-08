@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,12 +12,14 @@ public class GameManager : MonoBehaviour
 		public string ColorName;
 		public GameObject Cannon;
 		public bool destroyed;
+
 	}
 
 	private const int NUM_PLAYERS = 2;
 
 	public GameObject CannonPrefab;
 	public Renderer Ground;
+	public Text StatusText;
 
 	private List<Player> players = new List<Player>();
 	private int currentPlayerIndex;
@@ -24,7 +27,10 @@ public class GameManager : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
-		initGame();
+		StatusText.text = "";
+		StatusText.CrossFadeAlpha(0.0f, 0, false);
+
+		resetGame();
 	}
 
 	// Update is called once per frame
@@ -33,10 +39,25 @@ public class GameManager : MonoBehaviour
 
 	}
 
+	private void showStatusText(string text, float timeOnScreen)
+	{
+		StartCoroutine(statusTextCoroutine(text, timeOnScreen));
+	}
+
+	private IEnumerator statusTextCoroutine(string text, float timeOnScreen)
+	{
+		StatusText.text = text;
+		StatusText.CrossFadeAlpha(1.0f, 1.0f, false);
+		yield return new WaitForSeconds(timeOnScreen);
+		StatusText.CrossFadeAlpha(0.0f, 1.0f, false);
+	}
+
 	public void OnTurnChange()
 	{
 		currentPlayerIndex = (currentPlayerIndex + 1) % NUM_PLAYERS;
+		Player player = players[currentPlayerIndex];
 
+		showStatusText(player.ColorName + " Player's Turn", 5);
 	}
 
 	public void OnCannonDestroyed(GameObject cannon)
@@ -62,18 +83,18 @@ public class GameManager : MonoBehaviour
 
 		if (numDestroyedPlayers == NUM_PLAYERS)
 		{
-			// draw
+			showStatusText("Draw!", 10);
 		}
 		else if (numDestroyedPlayers == NUM_PLAYERS - 1)
 		{
-			// someone won
+			showStatusText(undestroyedPlayer.ColorName + " Player Won!", 10);
 		}
 	}
 
-	private void initGame()
+	private void resetGame()
 	{
 		List<Color> colors = new List<Color> { Color.red, Color.blue, Color.green, Color.yellow };
-		List<string> colorNames = new List<string> { "red", "blue", "green", "yellow" };
+		List<string> colorNames = new List<string> { "Red", "Blue", "Green", "Yellow" };
 
 		var bounds = Ground.bounds;
 		for (int i = 0; i < NUM_PLAYERS; i++)
@@ -99,8 +120,10 @@ public class GameManager : MonoBehaviour
 			Debug.Log("created player [" + player.Id + ", " + player.ColorName + "] cannon at " + player.Cannon.transform.position.ToString("f4") + ", rot: " + player.Cannon.transform.eulerAngles.ToString("f4"));
 		}
 
-		currentPlayerIndex = Random.Range(0, NUM_PLAYERS);
+		currentPlayerIndex = 0;
 		Debug.Log("player [" + players[currentPlayerIndex].Id + ", " + players[currentPlayerIndex].ColorName + "] starts");
+
+		showStatusText(players[currentPlayerIndex].ColorName + " Player's Turn", 10);
 	}
 
 }
