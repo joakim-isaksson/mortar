@@ -14,13 +14,13 @@ public class MissileController : MonoBehaviour
 
 	Rigidbody rigidBody;
 	Transform playerPosition;
-	MeshRenderer renderer;
+	MeshRenderer meshRenderer;
 	bool exploding;
 
 	void Awake()
 	{
 		rigidBody = GetComponent<Rigidbody>();
-		renderer = GetComponent<MeshRenderer>();
+		meshRenderer = GetComponent<MeshRenderer>();
 		playerPosition = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 	}
 
@@ -44,8 +44,8 @@ public class MissileController : MonoBehaviour
 		if (exploding) return;
 		exploding = true;
 
-		// Hide the missile and show an explosion
-		renderer.enabled = false;
+		// Hide the missile and show the explosion
+		meshRenderer.enabled = false;
 		Instantiate(ExplosionPrefab, explosionPoint, Quaternion.identity);
 
 		// Play explosion sound depending on the distance from player
@@ -59,7 +59,7 @@ public class MissileController : MonoBehaviour
 		source.Play();
 		yield return new WaitForSeconds(source.clip.length);
 
-		fireAction.OnMissileExploded();
+		FireAction.OnMissileExploded();
 
 		Destroy(gameObject);
 	}
