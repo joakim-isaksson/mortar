@@ -7,24 +7,23 @@ public class FireAction : MonoBehaviour
 	public GameObject MissilePrefab;
 	public float MissileForce;
 
+	public Transform MuzzleFlashPoint;
+	public GameObject MuzzleFlashPrefab;
+
 	public PingPongAnimator TriggerAnimator;
 	public PingPongAnimator BarrelAnimator;
 
 	public AudioSource blastSource;
 	public AudioClip blastSound;
 
-	public Light muzzleFlash;
-	public float flashDuration;
-
 	bool triggerCooldown;
 	bool recoilCooldown;
 
-	public GameManager gameManager;
+	GameManager gameManager;
 
 	void Awake()
 	{
 		gameManager = FindObjectOfType<GameManager>();
-		muzzleFlash.enabled = false;
 	}
 
 	public void Fire()
@@ -34,12 +33,14 @@ public class FireAction : MonoBehaviour
 
 		// SFX
 		blastSource.PlayOneShot(blastSound);
-		StartCoroutine(MuzzleFlash());
+		Instantiate(MuzzleFlashPrefab, MuzzleFlashPoint.position, MuzzleFlashPoint.rotation);
+
+		// Spawn the projectile
+		SpawnMissile();
 
 		// Animations
 		TriggerAnimator.StartAnimation();
 		BarrelAnimator.StartAnimation();
-		SpawnMissile();
 
 		// Vibrate controllers
 		StartCoroutine(HapticUtils.LongVibrationBoth(1, FireHapticStrength));
@@ -64,12 +65,5 @@ public class FireAction : MonoBehaviour
 
 		Rigidbody rb = missile.GetComponent<Rigidbody>();
 		rb.AddForce(MissileSpawnPoint.forward * MissileForce, ForceMode.Impulse);
-	}
-
-	IEnumerator MuzzleFlash()
-	{
-		muzzleFlash.enabled = true;
-		yield return new WaitForSeconds(flashDuration);
-		muzzleFlash.enabled = false;
 	}
 }

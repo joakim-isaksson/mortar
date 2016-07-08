@@ -17,22 +17,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &101970
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 421072}
-  - 108: {fileID: 10836986}
-  m_Layer: 0
-  m_Name: MuzzleLight
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &105804
 GameObject:
   m_ObjectHideFlags: 1
@@ -220,6 +204,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &124770
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 461730}
+  m_Layer: 0
+  m_Name: MissileSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &127342
 GameObject:
   m_ObjectHideFlags: 1
@@ -263,7 +262,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 420120}
   m_Layer: 0
-  m_Name: MissileSpawnPoint
+  m_Name: MuzzleFlashPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -777,12 +776,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 134380}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071067}
-  m_LocalPosition: {x: 0, y: 0.895, z: 0}
-  m_LocalScale: {x: 2.7777777, y: 2.7777777, z: 0.37037036}
+  m_LocalPosition: {x: 0, y: 1.042, z: -0}
+  m_LocalScale: {x: 2.7777777, y: 2.7777774, z: 0.3703703}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 478784}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!4 &420882
 Transform:
   m_ObjectHideFlags: 1
@@ -795,19 +794,6 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 467222}
-  m_RootOrder: 2
---- !u!4 &421072
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 101970}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.32, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 478784}
   m_RootOrder: 2
 --- !u!4 &421752
 Transform:
@@ -1054,6 +1040,19 @@ Transform:
   - {fileID: 478784}
   m_Father: {fileID: 411178}
   m_RootOrder: 1
+--- !u!4 &461730
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124770}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071067}
+  m_LocalPosition: {x: 0, y: 0.895, z: 0}
+  m_LocalScale: {x: 2.7777777, y: 2.7777777, z: 0.37037036}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 478784}
+  m_RootOrder: 0
 --- !u!4 &465904
 Transform:
   m_ObjectHideFlags: 1
@@ -1084,7 +1083,7 @@ Transform:
   - {fileID: 435380}
   - {fileID: 420882}
   m_Father: {fileID: 478784}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!4 &470460
 Transform:
   m_ObjectHideFlags: 1
@@ -1151,9 +1150,9 @@ Transform:
   m_LocalScale: {x: 0.36, y: 2.7, z: 0.36}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 461730}
   - {fileID: 420120}
   - {fileID: 467222}
-  - {fileID: 421072}
   m_Father: {fileID: 460606}
   m_RootOrder: 4
 --- !u!4 &480140
@@ -2173,39 +2172,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!108 &10836986
-Light:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 101970}
-  m_Enabled: 0
-  serializedVersion: 6
-  m_Type: 2
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1.5
-  m_Range: 50
-  m_SpotAngle: 30
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 0
-    m_Resolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_Lightmapping: 4
-  m_BounceIntensity: 1
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
-  m_AreaSize: {x: 1, y: 1}
 --- !u!114 &11420308
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2267,16 +2233,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5939d7d60d71aca4488b741708822c1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MissileSpawnPoint: {fileID: 420120}
+  MissileSpawnPoint: {fileID: 461730}
   MissilePrefab: {fileID: 164112, guid: a6a16cb191cdd1a4a8eefc4d68600090, type: 2}
   MissileForce: 50
+  MuzzleFlashPoint: {fileID: 420120}
+  MuzzleFlashPrefab: {fileID: 121558, guid: 1c6cbdf5312c016419cffc13d2105d5c, type: 2}
   TriggerAnimator: {fileID: 11446056}
   BarrelAnimator: {fileID: 11495528}
   blastSource: {fileID: 8236026}
   blastSound: {fileID: 8300000, guid: c36c1b7fd50adf54c8ac3b480949e6f8, type: 3}
-  muzzleFlash: {fileID: 10836986}
-  flashDuration: 0.1
-  gameManager: {fileID: 0}
 --- !u!114 &11473524
 MonoBehaviour:
   m_ObjectHideFlags: 1
