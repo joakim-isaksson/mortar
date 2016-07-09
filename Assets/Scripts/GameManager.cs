@@ -96,9 +96,6 @@ public class GameManager : MonoBehaviour
 		showStatusText(player.ColorName + " Player's Turn", 5);
 
 		teleport.TeleportTo(player.TeleportLocations[0]);
-
-		// Update wind direction and force
-		Wind = new Vector3(Random.Range(-MaxWindForce, MaxWindForce), 0, Random.Range(-MaxWindForce, MaxWindForce));
 	}
 
 	public void OnCannonDestroyed(GameObject cannon)
@@ -197,7 +194,8 @@ public class GameManager : MonoBehaviour
 
 			positions.Add(pos);
 
-			GameObject cannon = (GameObject)Instantiate(CannonPrefab, new Vector3(pos.x, -0.4f, pos.y), Quaternion.Euler(0, dir, 0));
+			// TODO dynamic height (0 - 0.39)
+			GameObject cannon = (GameObject)Instantiate(CannonPrefab, new Vector3(pos.x, -0.39f, pos.y), Quaternion.Euler(0, dir, 0));
 
 			Player player = new Player();
 			player.Id = i;
@@ -238,7 +236,7 @@ public class GameManager : MonoBehaviour
 					Vector3 perp = Vector3.Cross(p2p, new Vector3(0, 1, 0)).normalized;
 
 					t.Position = p.Cannon.transform.position + p2p * 0.5f + perp * (p2p.magnitude / 2);
-					t.Position.y = 100;
+					t.Position.y = 80;
 
 					Vector3 toCannon = p.Cannon.transform.position - t.Position;
 					toCannon.z = 0;
@@ -260,6 +258,9 @@ public class GameManager : MonoBehaviour
 		showStatusText(players[currentPlayerIndex].ColorName + " Player's Turn", 10);
 
 		teleport.TeleportTo(players[currentPlayerIndex].TeleportLocations[0]);
+
+		// Update wind direction and force
+		Wind = Quaternion.Euler(0, Random.Range(0, 360), 0) * Vector3.forward * Random.Range(0, MaxWindForce);
 	}
 
 }

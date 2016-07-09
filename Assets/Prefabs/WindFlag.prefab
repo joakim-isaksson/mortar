@@ -10,7 +10,6 @@ GameObject:
   - 4: {fileID: 481624}
   - 33: {fileID: 3367100}
   - 23: {fileID: 2384152}
-  - 114: {fileID: 11496830}
   m_Layer: 0
   m_Name: WindFlag
   m_TagString: Untagged
@@ -28,6 +27,7 @@ GameObject:
   - 4: {fileID: 465592}
   - 33: {fileID: 3327636}
   - 23: {fileID: 2355538}
+  - 114: {fileID: 11403642}
   m_Layer: 0
   m_Name: Flag
   m_TagString: Untagged
@@ -128,19 +128,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 127766}
   m_Mesh: {fileID: 4300000, guid: 47b24837b36a02b4f92f98862bd4f990, type: 3}
---- !u!114 &11496830
+--- !u!114 &11403642
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 127766}
+  m_GameObject: {fileID: 144866}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 164e2644f384bab4d9fe8e91a90b6349, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FlagColor: {r: 0, g: 0, b: 0, a: 0}
-  FlagRenderer: {fileID: 2355538}
+  FlagRenderer: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
