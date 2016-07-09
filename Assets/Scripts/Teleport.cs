@@ -2,8 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Teleport : MonoBehaviour
+public class Teleport
 {
+	public class TeleportLocation
+	{
+		public Vector3 Position = Vector3.zero;
+		public Quaternion Rotation = Quaternion.identity;
+		public bool ForceRotation;
+	}
+
 	enum Action
 	{
 		NOTHING, NEXT, PREVIOUS
@@ -11,7 +18,12 @@ public class Teleport : MonoBehaviour
 
 	private const float DEADZONE = 0.1f;
 
-	int currentIndex;
+	GameManager gameManager;
+
+	public Teleport(GameManager gameManager)
+	{
+		this.gameManager = gameManager;
+	}
 
 	Transform reference
 	{
@@ -20,11 +32,6 @@ public class Teleport : MonoBehaviour
 			var top = SteamVR_Render.Top();
 			return (top != null) ? top.origin : null;
 		}
-	}
-
-	void Start()
-	{
-
 	}
 
 	private Action checkInput()
@@ -54,42 +61,51 @@ public class Teleport : MonoBehaviour
 		return Action.NOTHING;
 	}
 
-	void Update()
+	public void TeleportTo(TeleportLocation location)
 	{
-		int index = -1;
+		Debug.Log("teleporting to " + location.Position.ToString("f4"));
+
+		var t = reference;
+		if (t == null) return;
+
+		//Vector3 headPosOnGround = new Vector3(SteamVR_Render.Top().head.localPosition.x, 0.0f, SteamVR_Render.Top().head.localPosition.z);
+		//t.rotation = location.rotation;
+		t.position = location.Position;
+		if (location.ForceRotation)
+		{
+			float eyeAngle = SteamVR_Render.Top().head.eulerAngles.y;
+			float targetAngle = location.Rotation.eulerAngles.y;
+			t.Rotate(0, targetAngle - eyeAngle, 0);
+		}
+		else
+		{
+			t.eulerAngles = Vector3.zero;
+		}
+		//t.position = position.position - new Vector3(t.GetChild(0).localPosition.x, 0f, t.GetChild(0).localPosition.z) - headPosOnGround;
+	}
+
+	// Needs to be called every frame
+	public void Update()
+	{
+		int inc = 0;
 
 		switch (checkInput())
 		{
 			case Action.PREVIOUS:
-				index = mod(--currentIndex, transform.childCount);
+				inc = -1;
 				break;
 			case Action.NEXT:
-				index = mod(++currentIndex, transform.childCount);
+				inc = 1;
 				break;
 		}
 
-		if (index != -1)
+		if (inc != 0)
 		{
-			Transform location = transform.GetChild(index);
-			TeleportLocation locationData = location.GetComponent<TeleportLocation>();
+			GameManager.Player player = gameManager.CurrentPlayer;
+			int index = mod(player.CurrentTeleportIndex + inc, player.TeleportLocations.Count);
+			player.CurrentTeleportIndex = index;
 
-			var t = reference;
-			if (t == null) return;
-
-			//Vector3 headPosOnGround = new Vector3(SteamVR_Render.Top().head.localPosition.x, 0.0f, SteamVR_Render.Top().head.localPosition.z);
-			//t.rotation = location.rotation;
-			t.position = location.position;
-			if (locationData.forceOrientation)
-			{
-				float eyeAngle = SteamVR_Render.Top().head.eulerAngles.y;
-				float targetAngle = location.eulerAngles.y;
-				t.Rotate(0, targetAngle - eyeAngle, 0);
-			}
-			else
-			{
-				t.eulerAngles = Vector3.zero;
-			}
-			//t.position = position.position - new Vector3(t.GetChild(0).localPosition.x, 0f, t.GetChild(0).localPosition.z) - headPosOnGround;
+			TeleportTo(player.TeleportLocations[index]);
 		}
 	}
 
