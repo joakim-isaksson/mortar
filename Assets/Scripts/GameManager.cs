@@ -207,6 +207,9 @@ public class GameManager : MonoBehaviour
 			player.Color = colors[colorIndex];
 			player.ColorName = colorNames[colorIndex];
 
+			FlagController flag = (FlagController)cannon.GetComponentInChildren<FlagController>();
+			flag.FlagRenderer.material.color = player.Color;
+
 			colors.RemoveAt(colorIndex);
 			colorNames.RemoveAt(colorIndex);
 

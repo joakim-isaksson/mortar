@@ -3,7 +3,6 @@ using System.Collections;
 
 public class FlagController : MonoBehaviour
 {
-	public Color FlagColor;
 	public MeshRenderer FlagRenderer;
 
 	GameManager gameManager;
@@ -11,11 +10,6 @@ public class FlagController : MonoBehaviour
 	void Start()
 	{
 		gameManager = FindObjectOfType<GameManager>();
-	}
-
-	void Awake()
-	{
-		FlagRenderer.material.color = FlagColor;
 	}
 
 	void Update()
