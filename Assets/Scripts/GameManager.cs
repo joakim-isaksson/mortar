@@ -70,9 +70,10 @@ public class GameManager : MonoBehaviour
 
 	public void OnTurnChange()
 	{
+		StartCoroutine(turnChangeCoroutine());
 	}
 
-	private IEnumerable turnChangeCoroutine()
+	private IEnumerator turnChangeCoroutine()
 	{
 		yield return new WaitForSeconds(TurnChangeDelay);
 
