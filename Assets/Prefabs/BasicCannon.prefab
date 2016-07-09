@@ -2255,6 +2255,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Barrel: {fileID: 460606}
   BarrelStartAngle: 45
+  CannonExplosionPrefab: {fileID: 190740, guid: 4741b65918676424fa1809d57355b1d8,
+    type: 2}
 --- !u!114 &11474156
 MonoBehaviour:
   m_ObjectHideFlags: 1

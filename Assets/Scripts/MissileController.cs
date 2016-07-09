@@ -50,10 +50,14 @@ public class MissileController : MonoBehaviour
 		meshRenderer.enabled = false;
 		Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
 
-		// Play explosion sound depending on distance to the player
+		// Play explosion sound depending on the distance to the player
 		float distanceToPlayer = Vector3.Distance(transform.position, playerPosition.position);
-		if (distanceToPlayer < FarDistance) StartCoroutine(PlayAndDestroy(ExplosionNear));
-		else StartCoroutine(PlayAndDestroy(ExplosionFar));
+		AudioSource source = ExplosionFar;
+		if (distanceToPlayer < FarDistance) source = ExplosionNear;
+		source.Play();
+
+		// Notify the firing unit of the explosion
+		FireAction.OnMissileExploded();
 
 		// Find and destroy all destroyable objects in the blast radius
 		foreach (GameObject obj in DestroyableObject.DestroyableObjects)
@@ -63,15 +67,14 @@ public class MissileController : MonoBehaviour
 				obj.GetComponent<IDestroyableObject>().OnDestroyObject();
 			}
 		}
+
+		// Destroy this missile object after the explosion sound has ended
+		StartCoroutine(WaitAndDestroy(source.clip.length));
 	}
 
-	IEnumerator PlayAndDestroy(AudioSource source)
+	IEnumerator WaitAndDestroy(float seconds)
 	{
-		source.Play();
-		yield return new WaitForSeconds(source.clip.length);
-
-		FireAction.OnMissileExploded();
-
+		yield return new WaitForSeconds(seconds);
 		Destroy(gameObject);
 	}
 }

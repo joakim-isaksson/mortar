@@ -5,6 +5,8 @@ public class CannonManager : MonoBehaviour, IDestroyableObject
 	public Component Barrel;
 	public float BarrelStartAngle;
 
+	public GameObject CannonExplosionPrefab;
+
 	GameManager gameManager;
 
 	void Awake()
@@ -15,6 +17,7 @@ public class CannonManager : MonoBehaviour, IDestroyableObject
 
 	public void OnDestroyObject()
 	{
+		Instantiate(CannonExplosionPrefab, transform.position, transform.rotation);
 		gameManager.OnCannonDestroyed(gameObject);
 		Destroy(gameObject);
 	}
