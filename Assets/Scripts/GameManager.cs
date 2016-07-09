@@ -157,7 +157,7 @@ public class GameManager : MonoBehaviour
 			float z = Random.Range(bounds.min.z, bounds.max.z);
 			float dir = Random.Range(0, 360);
 
-			GameObject cannon = (GameObject)Instantiate(CannonPrefab, new Vector3(x, 0, z), Quaternion.Euler(0, dir, 0));
+			GameObject cannon = (GameObject)Instantiate(CannonPrefab, new Vector3(x, -0.4f, z), Quaternion.Euler(0, dir, 0));
 
 			Player player = new Player();
 			player.Id = i;
