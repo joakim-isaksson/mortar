@@ -383,6 +383,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28e1320ff2f10d744b80149dcc011e1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Wind: {x: 0, y: 0, z: 0}
+  MaxWindForce: 1
   CannonPrefab: {fileID: 114942, guid: 8bab3302fc9645543a0f67f0eb560eae, type: 2}
   Ground: {fileID: 8076872}
   StatusText: {fileID: 701185736}

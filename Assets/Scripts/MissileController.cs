@@ -14,6 +14,7 @@ public class MissileController : MonoBehaviour
 	[HideInInspector]
 	public FireAction FireAction;
 
+	GameManager gameManager;
 	Rigidbody rigidBody;
 	Transform playerPosition;
 	MeshRenderer meshRenderer;
@@ -21,6 +22,7 @@ public class MissileController : MonoBehaviour
 
 	void Awake()
 	{
+		gameManager = FindObjectOfType<GameManager>();
 		rigidBody = GetComponent<Rigidbody>();
 		meshRenderer = GetComponent<MeshRenderer>();
 		playerPosition = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
@@ -30,6 +32,9 @@ public class MissileController : MonoBehaviour
 	{
 		// Update missile flying angle
 		rigidBody.MoveRotation(Quaternion.LookRotation(rigidBody.velocity));
+
+		// Add wind force
+		rigidBody.AddForce(gameManager.Wind);
 
 		// Check for automatic explosion
 		if (transform.position.y < AutoExplodeAtAltitude) Explode();

@@ -19,6 +19,10 @@ public class GameManager : MonoBehaviour
 
 	const int NUM_PLAYERS = 2;
 
+	[HideInInspector]
+	public Vector3 Wind = Vector3.zero;
+	public float MaxWindForce;
+
 	public GameObject CannonPrefab;
 	public Renderer Ground;
 	public Text StatusText;
@@ -92,6 +96,9 @@ public class GameManager : MonoBehaviour
 		showStatusText(player.ColorName + " Player's Turn", 5);
 
 		teleport.TeleportTo(player.TeleportLocations[0]);
+
+		// Update wind direction and force
+		Wind = new Vector3(Random.Range(-MaxWindForce, MaxWindForce), 0, Random.Range(-MaxWindForce, MaxWindForce));
 	}
 
 	public void OnCannonDestroyed(GameObject cannon)
@@ -147,7 +154,7 @@ public class GameManager : MonoBehaviour
 		{
 			if (p.Cannon != null)
 			{
-				Object.Destroy(p.Cannon);
+				Destroy(p.Cannon);
 			}
 		}
 		players.Clear();

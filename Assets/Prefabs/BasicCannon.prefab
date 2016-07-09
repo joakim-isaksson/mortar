@@ -2235,7 +2235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MissileSpawnPoint: {fileID: 461730}
   MissilePrefab: {fileID: 164112, guid: a6a16cb191cdd1a4a8eefc4d68600090, type: 2}
-  MissileForce: 50
+  MissileForce: 80
   MuzzleFlashPoint: {fileID: 420120}
   MuzzleFlashPrefab: {fileID: 121558, guid: 1c6cbdf5312c016419cffc13d2105d5c, type: 2}
   TriggerAnimator: {fileID: 11446056}
