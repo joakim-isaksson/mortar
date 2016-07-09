@@ -224,6 +224,7 @@ public class GameManager : MonoBehaviour
 		{
 			Teleport.TeleportLocation t = new Teleport.TeleportLocation();
 			t.Position = p.Cannon.transform.position;
+			t.Position.y = 0;
 			p.TeleportLocations.Add(t);
 
 			foreach (Player p2 in players)
