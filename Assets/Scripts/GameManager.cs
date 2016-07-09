@@ -165,8 +165,25 @@ public class GameManager : MonoBehaviour
 			// Generate waypoints for player
 			{
 				Teleport.TeleportLocation t = new Teleport.TeleportLocation();
-				t.Position = cannon.transform.position - cannon.transform.forward;
+				t.Position = cannon.transform.position;
 				player.TeleportLocations.Add(t);
+			}
+
+			foreach (Player p in players)
+			{
+				if (p != player)
+				{
+					Teleport.TeleportLocation t = new Teleport.TeleportLocation();
+					Vector3 p2p = p.Cannon.transform.position - player.Cannon.transform.position;
+					p2p.y = 0;
+
+					Vector3 perp = Vector3.Cross(p2p, new Vector3(0, 1, 0)).normalized;
+
+					t.Position = p2p * 0.5f + perp * (p2p.magnitude / 2);
+					t.Position.y = 100;
+
+					player.TeleportLocations.Add(t);
+				}
 			}
 
 			player.CurrentTeleportIndex = 0;
