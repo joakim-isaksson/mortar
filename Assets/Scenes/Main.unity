@@ -156,7 +156,7 @@ Transform:
   m_GameObject: {fileID: 8076871}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071067}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 500, y: 500, z: 1}
+  m_LocalScale: {x: 1000, y: 1000, z: 1}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -386,6 +386,11 @@ MonoBehaviour:
   CannonPrefab: {fileID: 114942, guid: 8bab3302fc9645543a0f67f0eb560eae, type: 2}
   Ground: {fileID: 8076872}
   StatusText: {fileID: 701185736}
+  TurnChangeDelay: 5
+  ResetDelay: 15
+  GenEdgePadding: 200
+  GenMinDistance: 100
+  GenMaxDistance: 500
 --- !u!4 &637289328
 Transform:
   m_ObjectHideFlags: 0

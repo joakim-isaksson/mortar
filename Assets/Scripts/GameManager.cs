@@ -22,7 +22,13 @@ public class GameManager : MonoBehaviour
 	public GameObject CannonPrefab;
 	public Renderer Ground;
 	public Text StatusText;
+
 	public float TurnChangeDelay = 5;
+	public float ResetDelay = 15;
+
+	public float GenEdgePadding = 200;
+	public float GenMinDistance = 100;
+	public float GenMaxDistance = 500;
 
 	List<Player> players = new List<Player>();
 	int currentPlayerIndex;
@@ -128,7 +134,7 @@ public class GameManager : MonoBehaviour
 
 	private IEnumerator resetGameCoroutine()
 	{
-		yield return new WaitForSeconds(15);
+		yield return new WaitForSeconds(ResetDelay);
 		resetGame();
 	}
 
@@ -149,15 +155,42 @@ public class GameManager : MonoBehaviour
 		List<Color> colors = new List<Color> { Color.red, Color.blue, Color.green, Color.yellow };
 		List<string> colorNames = new List<string> { "Red", "Blue", "Green", "Yellow" };
 
+		List<Vector2> positions = new List<Vector2>();
+
 		var bounds = Ground.bounds;
 		for (int i = 0; i < NUM_PLAYERS; i++)
 		{
 			// TODO better placement randomization
-			float x = Random.Range(bounds.min.x, bounds.max.x);
-			float z = Random.Range(bounds.min.z, bounds.max.z);
 			float dir = Random.Range(0, 360);
 
-			GameObject cannon = (GameObject)Instantiate(CannonPrefab, new Vector3(x, -0.4f, z), Quaternion.Euler(0, dir, 0));
+			Vector2 pos;
+			bool valid;
+			int iteration = 0;
+			do
+			{
+				valid = true;
+
+				float x = Random.Range(bounds.min.x + GenEdgePadding, bounds.max.x - GenEdgePadding);
+				float z = Random.Range(bounds.min.z + GenEdgePadding, bounds.max.z - GenEdgePadding);
+
+				pos = new Vector2(x, z);
+				foreach (Vector2 v in positions)
+				{
+					float sqDist = (v - pos).sqrMagnitude;
+					if (sqDist < GenMinDistance * GenMinDistance || sqDist > GenMaxDistance * GenMaxDistance)
+					{
+						valid = false;
+						break;
+					}
+				}
+
+				if (++iteration > 10000) throw new System.SystemException("failed to randomize placements for players");
+
+			} while (!valid);
+
+			positions.Add(pos);
+
+			GameObject cannon = (GameObject)Instantiate(CannonPrefab, new Vector3(pos.x, -0.4f, pos.y), Quaternion.Euler(0, dir, 0));
 
 			Player player = new Player();
 			player.Id = i;
