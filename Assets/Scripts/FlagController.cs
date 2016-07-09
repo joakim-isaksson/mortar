@@ -16,9 +16,8 @@ public class FlagController : MonoBehaviour
 
 	void Update()
 	{
-		Debug.Log("wind: " + gameManager.Wind);
-		//transform.LookAt(gameManager.Wind);
+		Debug.Log("wind: " + gameManager.Wind.ToString("f4"));
 		transform.rotation = Quaternion.LookRotation(gameManager.Wind.normalized, Vector3.up);
-		Debug.Log("transform: " + transform.forward);
+		Debug.Log("transform: " + transform.forward.ToString("f4"));
 	}
 }
