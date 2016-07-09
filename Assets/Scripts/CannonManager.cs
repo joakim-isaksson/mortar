@@ -10,7 +10,7 @@ public class CannonManager : MonoBehaviour, IDestroyableObject
 	void Awake()
 	{
 		gameManager = FindObjectOfType<GameManager>();
-		Barrel.transform.rotation = Quaternion.Euler(BarrelStartAngle, 0, 0);
+		Barrel.transform.localRotation = Quaternion.Euler(BarrelStartAngle, 0, 0);
 	}
 
 	public void OnDestroyObject()
