@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 	public GameObject CannonPrefab;
 	public Renderer Ground;
 	public Text StatusText;
+	public float TurnChangeDelay = 5;
 
 	List<Player> players = new List<Player>();
 	int currentPlayerIndex;
@@ -69,7 +70,13 @@ public class GameManager : MonoBehaviour
 
 	public void OnTurnChange()
 	{
-		if (gameOver) return;
+	}
+
+	private IEnumerable turnChangeCoroutine()
+	{
+		yield return new WaitForSeconds(TurnChangeDelay);
+
+		if (gameOver) yield break;
 
 		currentPlayerIndex = (currentPlayerIndex + 1) % NUM_PLAYERS;
 		Player player = players[currentPlayerIndex];
@@ -162,34 +169,42 @@ public class GameManager : MonoBehaviour
 			colors.RemoveAt(colorIndex);
 			colorNames.RemoveAt(colorIndex);
 
-			// Generate waypoints for player
-			{
-				Teleport.TeleportLocation t = new Teleport.TeleportLocation();
-				t.Position = cannon.transform.position;
-				player.TeleportLocations.Add(t);
-			}
-
-			foreach (Player p in players)
-			{
-				if (p != player)
-				{
-					Teleport.TeleportLocation t = new Teleport.TeleportLocation();
-					Vector3 p2p = p.Cannon.transform.position - player.Cannon.transform.position;
-					p2p.y = 0;
-
-					Vector3 perp = Vector3.Cross(p2p, new Vector3(0, 1, 0)).normalized;
-
-					t.Position = p2p * 0.5f + perp * (p2p.magnitude / 2);
-					t.Position.y = 100;
-
-					player.TeleportLocations.Add(t);
-				}
-			}
-
 			player.CurrentTeleportIndex = 0;
 			players.Add(player);
 
 			Debug.Log("created player [" + player.Id + ", " + player.ColorName + "] cannon at " + player.Cannon.transform.position.ToString("f4") + ", rot: " + player.Cannon.transform.eulerAngles.ToString("f4"));
+		}
+
+		// Generate waypoints for players
+		foreach (Player p in players)
+		{
+			Teleport.TeleportLocation t = new Teleport.TeleportLocation();
+			t.Position = p.Cannon.transform.position;
+			p.TeleportLocations.Add(t);
+
+			foreach (Player p2 in players)
+			{
+				if (p != p2)
+				{
+					t = new Teleport.TeleportLocation();
+					Vector3 p2p = p2.Cannon.transform.position - p.Cannon.transform.position;
+					p2p.y = 0;
+
+					Vector3 perp = Vector3.Cross(p2p, new Vector3(0, 1, 0)).normalized;
+
+					t.Position = p.Cannon.transform.position + p2p * 0.5f + perp * (p2p.magnitude / 2);
+					t.Position.y = 100;
+
+					Vector3 toCannon = p.Cannon.transform.position - t.Position;
+					toCannon.z = 0;
+					toCannon.Normalize();
+
+					t.Rotation = Quaternion.LookRotation(toCannon);
+					t.ForceRotation = true;
+
+					p.TeleportLocations.Add(t);
+				}
+			}
 		}
 
 		currentPlayerIndex = 0;
