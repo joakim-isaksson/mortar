@@ -73,13 +73,14 @@ public class Teleport
 		t.position = location.Position;
 		if (location.ForceRotation)
 		{
-			float eyeAngle = SteamVR_Render.Top().head.eulerAngles.y;
-			float targetAngle = location.Rotation.eulerAngles.y;
-			t.Rotate(0, targetAngle - eyeAngle, 0);
+			//float eyeAngle = SteamVR_Render.Top().head.eulerAngles.y;
+			//float targetAngle = location.Rotation.eulerAngles.y;
+			//t.Rotate(0, targetAngle - eyeAngle, 0);
+			t.rotation = location.Rotation;
 		}
 		else
 		{
-			t.eulerAngles = Vector3.zero;
+			t.rotation = Quaternion.identity;
 		}
 		//t.position = position.position - new Vector3(t.GetChild(0).localPosition.x, 0f, t.GetChild(0).localPosition.z) - headPosOnGround;
 	}
