@@ -18,8 +18,8 @@ RenderSettings:
   m_FogColor: {r: 0.3647059, g: 0.35686275, b: 0.39215687, a: 1}
   m_FogMode: 1
   m_FogDensity: 0.01
-  m_LinearFogStart: 0
-  m_LinearFogEnd: 500
+  m_LinearFogStart: 100
+  m_LinearFogEnd: 800
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
@@ -156,7 +156,7 @@ Transform:
   m_GameObject: {fileID: 8076871}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071067}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1000, y: 1000, z: 1}
+  m_LocalScale: {x: 1200, y: 1200, z: 1}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -384,13 +384,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Wind: {x: 0, y: 0, z: 0}
-  MaxWindForce: 1
+  MaxWindForce: 2
   CannonPrefab: {fileID: 114942, guid: 8bab3302fc9645543a0f67f0eb560eae, type: 2}
   Ground: {fileID: 8076872}
   StatusText: {fileID: 701185736}
   TurnChangeDelay: 5
-  ResetDelay: 15
-  GenEdgePadding: 200
+  ResetDelay: 10
+  GenEdgePadding: 400
   GenMinDistance: 100
   GenMaxDistance: 500
 --- !u!4 &637289328
