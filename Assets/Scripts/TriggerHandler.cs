@@ -3,8 +3,7 @@ using System.Collections;
 
 public class TriggerHandler : MonoBehaviour
 {
-
-	public FireAction FireAction;
+	public CannonController Cannon;
 
 	public void OnTriggerStay(Collider other)
 	{
@@ -15,7 +14,7 @@ public class TriggerHandler : MonoBehaviour
 			{
 				if (SteamVR_Controller.Input((int)controller.index).GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
 				{
-					FireAction.Fire();
+					Cannon.Fire();
 				}
 			}
 		}

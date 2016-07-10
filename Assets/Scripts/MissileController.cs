@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class MissileController : MonoBehaviour
 {
@@ -11,8 +12,7 @@ public class MissileController : MonoBehaviour
 	public float AutoExplodeAtAltitude;
 	public float BlastRadius;
 
-	[HideInInspector]
-	public FireAction FireAction;
+	public Action OnMissileExploded;
 
 	GameManager gameManager;
 	Rigidbody rigidBody;
@@ -61,8 +61,8 @@ public class MissileController : MonoBehaviour
 		if (distanceToPlayer < FarDistance) source = ExplosionNear;
 		source.Play();
 
-		// Notify the firing unit of the explosion
-		FireAction.OnMissileExploded();
+		// Notify missile listener of the explosion
+		OnMissileExploded();
 
 		// Find and destroy all destroyable objects in the blast radius
 		foreach (GameObject obj in DestroyableObject.DestroyableObjects)

@@ -45,59 +45,6 @@ public class GameManager : MonoBehaviour
 		get { return players[currentPlayerIndex]; }
 	}
 
-	void Awake()
-	{
-		teleport = new Teleport(this);
-	}
-
-	// Use this for initialization
-	void Start()
-	{
-		StatusText.text = "";
-		StatusText.CrossFadeAlpha(0.0f, 0, false);
-
-		resetGame();
-	}
-
-	// Update is called once per frame
-	void Update()
-	{
-		teleport.Update();
-	}
-
-	private void showStatusText(string text, float timeOnScreen)
-	{
-		StartCoroutine(statusTextCoroutine(text, timeOnScreen));
-	}
-
-	private IEnumerator statusTextCoroutine(string text, float timeOnScreen)
-	{
-		StatusText.text = text;
-		StatusText.CrossFadeAlpha(1.0f, 1.0f, false);
-		yield return new WaitForSeconds(timeOnScreen);
-		StatusText.CrossFadeAlpha(0.0f, 1.0f, false);
-	}
-
-	public void OnTurnChange()
-	{
-		StartCoroutine(turnChangeCoroutine());
-	}
-
-	private IEnumerator turnChangeCoroutine()
-	{
-		yield return new WaitForSeconds(TurnChangeDelay);
-
-		if (gameOver) yield break;
-
-		currentPlayerIndex = (currentPlayerIndex + 1) % NUM_PLAYERS;
-		Player player = players[currentPlayerIndex];
-		player.CurrentTeleportIndex = 0;
-
-		showStatusText(player.ColorName + " Player's Turn", 5);
-
-		teleport.TeleportTo(player.TeleportLocations[0]);
-	}
-
 	public void OnCannonDestroyed(GameObject cannon)
 	{
 		// Mark player as destroyed
@@ -136,13 +83,61 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	private IEnumerator resetGameCoroutine()
+	void Awake()
+	{
+		teleport = new Teleport(this);
+	}
+
+	// Use this for initialization
+	void Start()
+	{
+		StatusText.text = "";
+		StatusText.CrossFadeAlpha(0.0f, 0, false);
+
+		resetGame();
+	}
+
+	// Update is called once per frame
+	void Update()
+	{
+		teleport.Update();
+	}
+
+	void showStatusText(string text, float timeOnScreen)
+	{
+		StartCoroutine(statusTextCoroutine(text, timeOnScreen));
+	}
+
+	IEnumerator statusTextCoroutine(string text, float timeOnScreen)
+	{
+		StatusText.text = text;
+		StatusText.CrossFadeAlpha(1.0f, 1.0f, false);
+		yield return new WaitForSeconds(timeOnScreen);
+		StatusText.CrossFadeAlpha(0.0f, 1.0f, false);
+	}
+
+	IEnumerator turnChangeCoroutine()
+	{
+		yield return new WaitForSeconds(TurnChangeDelay);
+
+		if (gameOver) yield break;
+
+		currentPlayerIndex = (currentPlayerIndex + 1) % NUM_PLAYERS;
+		Player player = players[currentPlayerIndex];
+		player.CurrentTeleportIndex = 0;
+
+		showStatusText(player.ColorName + " Player's Turn", 5);
+
+		teleport.TeleportTo(player.TeleportLocations[0]);
+	}
+
+	IEnumerator resetGameCoroutine()
 	{
 		yield return new WaitForSeconds(ResetDelay);
 		resetGame();
 	}
 
-	private void resetGame()
+	void resetGame()
 	{
 		Debug.Log("resetGame");
 
@@ -205,8 +200,13 @@ public class GameManager : MonoBehaviour
 			player.Color = colors[colorIndex];
 			player.ColorName = colorNames[colorIndex];
 
-			FlagController flag = (FlagController)cannon.GetComponentInChildren<FlagController>();
+			FlagController flag = cannon.GetComponentInChildren<FlagController>();
 			flag.FlagRenderer.material.color = player.Color;
+
+			CannonController cannonController = cannon.GetComponentInChildren<CannonController>();
+			cannonController.OnCannonFired = delegate { };
+			cannonController.OnCannonExploded = delegate { OnCannonDestroyed(player.Cannon); };
+			cannonController.OnMissileExploded = delegate { StartCoroutine(turnChangeCoroutine()); };
 
 			colors.RemoveAt(colorIndex);
 			colorNames.RemoveAt(colorIndex);
@@ -239,7 +239,7 @@ public class GameManager : MonoBehaviour
 					t.Position.y = 80;
 
 					Vector3 toCannon = p.Cannon.transform.position - t.Position;
-					toCannon.z = 0;
+					toCannon.y = 0;
 					toCannon.Normalize();
 
 					t.Rotation = Quaternion.LookRotation(toCannon);
@@ -262,5 +262,4 @@ public class GameManager : MonoBehaviour
 		// Update wind direction and force
 		Wind = Quaternion.Euler(0, Random.Range(0, 360), 0) * Vector3.forward * Random.Range(0, MaxWindForce);
 	}
-
 }
