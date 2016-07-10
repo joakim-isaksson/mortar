@@ -139,7 +139,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 428616}
-  - 114: {fileID: 11473524}
   - 114: {fileID: 11462154}
   - 114: {fileID: 11424820}
   m_Layer: 0
@@ -2347,7 +2346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbbc52702ddfcc04e889b2c073dfea68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FireAction: {fileID: 11462154}
+  Cannon: {fileID: 0}
 --- !u!114 &11446056
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2374,6 +2373,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5939d7d60d71aca4488b741708822c1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Barrel: {fileID: 460606}
+  BarrelStartAngle: 45
   MissileSpawnPoint: {fileID: 461730}
   MissilePrefab: {fileID: 164112, guid: a6a16cb191cdd1a4a8eefc4d68600090, type: 2}
   MissileForce: 80
@@ -2383,21 +2384,9 @@ MonoBehaviour:
   BarrelAnimator: {fileID: 11495528}
   blastSource: {fileID: 8236026}
   blastSound: {fileID: 8300000, guid: c36c1b7fd50adf54c8ac3b480949e6f8, type: 3}
---- !u!114 &11473524
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 114942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf51d8b089ebf1a4ca61068b8b92060a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Barrel: {fileID: 460606}
-  BarrelStartAngle: 45
   CannonExplosionPrefab: {fileID: 190740, guid: 4741b65918676424fa1809d57355b1d8,
     type: 2}
+  FiringEnabled: 0
 --- !u!114 &11474156
 MonoBehaviour:
   m_ObjectHideFlags: 1
