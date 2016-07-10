@@ -221,11 +221,13 @@ public class GameManager : MonoBehaviour
 		// Generate waypoints for players
 		foreach (Player p in players)
 		{
+			// Cannon location
 			Teleport.TeleportLocation t = new Teleport.TeleportLocation();
 			t.Position = p.Cannon.transform.position;
 			t.Position.y = 0;
 			p.TeleportLocations.Add(t);
 
+			// Bird view location(s), one per opponent
 			foreach (Player p2 in players)
 			{
 				if (p != p2)
