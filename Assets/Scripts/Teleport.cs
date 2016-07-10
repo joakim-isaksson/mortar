@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿//#define _DEBUG_CONTROLLER_
+
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -36,6 +38,10 @@ public class Teleport
 
 	private Action checkInput()
 	{
+#if (_DEBUG_CONTROLLER_)
+		if (Input.GetKeyDown("space")) return Action.NEXT;
+		else return Action.NOTHING;
+#else
 		var leftIndex = SteamVR_Controller.GetDeviceIndex(SteamVR_Controller.DeviceRelation.Leftmost);
 		var rightIndex = SteamVR_Controller.GetDeviceIndex(SteamVR_Controller.DeviceRelation.Rightmost);
 
@@ -59,6 +65,7 @@ public class Teleport
 			}
 		}
 		return Action.NOTHING;
+#endif
 	}
 
 	public void TeleportTo(TeleportLocation location)
@@ -73,10 +80,10 @@ public class Teleport
 		t.position = location.Position;
 		if (location.ForceRotation)
 		{
-			//float eyeAngle = SteamVR_Render.Top().head.eulerAngles.y;
-			//float targetAngle = location.Rotation.eulerAngles.y;
-			//t.Rotate(0, targetAngle - eyeAngle, 0);
-			t.rotation = location.Rotation;
+			float eyeAngle = SteamVR_Render.Top().head.eulerAngles.y;
+			float targetAngle = location.Rotation.eulerAngles.y;
+			t.Rotate(0, targetAngle - eyeAngle, 0);
+			//t.rotation = location.Rotation;
 		}
 		else
 		{
