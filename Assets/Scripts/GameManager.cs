@@ -125,6 +125,7 @@ public class GameManager : MonoBehaviour
 		currentPlayerIndex = (currentPlayerIndex + 1) % NUM_PLAYERS;
 		Player player = players[currentPlayerIndex];
 		player.CurrentTeleportIndex = 0;
+		player.Cannon.GetComponent<CannonController>().FiringEnabled = true;
 
 		showStatusText(player.ColorName + " Player's Turn", 5);
 
@@ -204,7 +205,7 @@ public class GameManager : MonoBehaviour
 			flag.FlagRenderer.material.color = player.Color;
 
 			CannonController cannonController = cannon.GetComponentInChildren<CannonController>();
-			cannonController.OnCannonFired = delegate { };
+			cannonController.OnCannonFired = delegate { cannonController.FiringEnabled = false; };
 			cannonController.OnCannonExploded = delegate { OnCannonDestroyed(player.Cannon); };
 			cannonController.OnMissileExploded = delegate { StartCoroutine(turnChangeCoroutine()); };
 
@@ -258,6 +259,8 @@ public class GameManager : MonoBehaviour
 		showStatusText(players[currentPlayerIndex].ColorName + " Player's Turn", 10);
 
 		teleport.TeleportTo(players[currentPlayerIndex].TeleportLocations[0]);
+
+		players[currentPlayerIndex].Cannon.GetComponent<CannonController>().FiringEnabled = true;
 
 		// Update wind direction and force
 		Wind = Quaternion.Euler(0, Random.Range(0, 360), 0) * Vector3.forward * Random.Range(0, MaxWindForce);
