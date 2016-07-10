@@ -82,7 +82,7 @@ public class Teleport
 		{
 			float eyeAngle = SteamVR_Render.Top().head.eulerAngles.y;
 			float targetAngle = location.Rotation.eulerAngles.y;
-			t.Rotate(0, targetAngle - eyeAngle - 90, 0);
+			t.Rotate(0, targetAngle - eyeAngle + 90, 0);
 			//t.rotation = location.Rotation;
 		}
 		else
