@@ -4,7 +4,7 @@ using System.Collections;
 public class WindMeter : MonoBehaviour
 {
 
-	public float AngularVelocity;
+	public float MaximumAngularVelocity;
 
 	GameManager gameManager;
 
@@ -15,8 +15,8 @@ public class WindMeter : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		float rotation = AngularVelocity * gameManager.Wind.magnitude;
-		//Debug.Log("gameManager.Wind.sqrMagnitude: " + gameManager.Wind);
-		transform.Rotate(transform.up, 5);
+		float rotation = MaximumAngularVelocity * gameManager.Wind.magnitude * Time.deltaTime;
+		Debug.Log("Wind: " + gameManager.Wind.magnitude.ToString("F4") + ", rotation: " + rotation.ToString("F4"));
+		transform.Rotate(transform.up, rotation);
 	}
 }

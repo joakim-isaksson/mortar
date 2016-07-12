@@ -2463,7 +2463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36f30c93eb876d1419865d3cae34c479, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AngularVelocity: 0
+  MaximumAngularVelocity: 700
 --- !u!114 &11474156
 MonoBehaviour:
   m_ObjectHideFlags: 1
