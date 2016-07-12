@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
 	public float GenMaxDistance = 500;
 
 	List<Player> players = new List<Player>();
-	int currentPlayerIndex;
+	int currentPlayerIndex = -1; // -1, so that the first changeTurn() will increment it to zero
 	bool gameOver;
 
 	Teleport teleport;
@@ -116,20 +116,28 @@ public class GameManager : MonoBehaviour
 		StatusText.CrossFadeAlpha(0.0f, 1.0f, false);
 	}
 
-	IEnumerator turnChangeCoroutine()
+	void changeTurn()
+	{
+		currentPlayerIndex = (currentPlayerIndex + 1) % NUM_PLAYERS;
+		Player player = players[currentPlayerIndex];
+
+		Debug.Log("player " + player.Id + " turn");
+
+		showStatusText(player.ColorName + " Player's Turn", 5);
+		teleport.TeleportTo(player.TeleportLocations[0]);
+		player.CurrentTeleportIndex = 0;
+		player.Cannon.GetComponent<CannonController>().FiringEnabled = true;
+
+		// Update wind direction and force
+		Wind = Quaternion.Euler(0, Random.Range(0, 360), 0) * Vector3.forward * Random.Range(0, MaxWindForce);
+	}
+
+	IEnumerator changeTurnDelayed()
 	{
 		yield return new WaitForSeconds(TurnChangeDelay);
 
 		if (gameOver) yield break;
-
-		currentPlayerIndex = (currentPlayerIndex + 1) % NUM_PLAYERS;
-		Player player = players[currentPlayerIndex];
-		player.CurrentTeleportIndex = 0;
-		player.Cannon.GetComponent<CannonController>().FiringEnabled = true;
-
-		showStatusText(player.ColorName + " Player's Turn", 5);
-
-		teleport.TeleportTo(player.TeleportLocations[0]);
+		changeTurn();
 	}
 
 	IEnumerator resetGameCoroutine()
@@ -207,7 +215,7 @@ public class GameManager : MonoBehaviour
 			CannonController cannonController = cannon.GetComponentInChildren<CannonController>();
 			cannonController.OnCannonFired = delegate { cannonController.FiringEnabled = false; };
 			cannonController.OnCannonExploded = delegate { OnCannonDestroyed(player.Cannon); };
-			cannonController.OnMissileExploded = delegate { StartCoroutine(turnChangeCoroutine()); };
+			cannonController.OnMissileExploded = delegate { StartCoroutine(changeTurnDelayed()); };
 
 			colors.RemoveAt(colorIndex);
 			colorNames.RemoveAt(colorIndex);
@@ -253,18 +261,7 @@ public class GameManager : MonoBehaviour
 			}
 		}
 
-		currentPlayerIndex = 0;
-		Debug.Log("player [" + players[currentPlayerIndex].Id + ", " + players[currentPlayerIndex].ColorName + "] starts");
-
 		gameOver = false;
-
-		showStatusText(players[currentPlayerIndex].ColorName + " Player's Turn", 10);
-
-		teleport.TeleportTo(players[currentPlayerIndex].TeleportLocations[0]);
-
-		players[currentPlayerIndex].Cannon.GetComponent<CannonController>().FiringEnabled = true;
-
-		// Update wind direction and force
-		Wind = Quaternion.Euler(0, Random.Range(0, 360), 0) * Vector3.forward * Random.Range(0, MaxWindForce);
+		changeTurn();
 	}
 }
