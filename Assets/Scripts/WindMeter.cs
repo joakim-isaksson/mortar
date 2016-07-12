@@ -16,7 +16,6 @@ public class WindMeter : MonoBehaviour
 	void FixedUpdate()
 	{
 		float rotation = MaximumAngularVelocity * gameManager.Wind.magnitude * Time.deltaTime;
-		Debug.Log("Wind: " + gameManager.Wind.magnitude.ToString("F4") + ", rotation: " + rotation.ToString("F4"));
 		transform.Rotate(transform.up, rotation);
 	}
 }
