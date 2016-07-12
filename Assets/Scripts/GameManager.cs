@@ -202,7 +202,7 @@ public class GameManager : MonoBehaviour
 			player.ColorName = colorNames[colorIndex];
 
 			FlagController flag = cannon.GetComponentInChildren<FlagController>();
-			flag.FlagRenderer.material.color = player.Color;
+			flag.gameObject.GetComponent<MeshRenderer>().material.color = player.Color;
 
 			CannonController cannonController = cannon.GetComponentInChildren<CannonController>();
 			cannonController.OnCannonFired = delegate { cannonController.FiringEnabled = false; };
