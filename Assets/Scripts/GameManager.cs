@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
 	public GameObject CannonPrefab;
 	public Renderer Ground;
 	public Text StatusText;
+	public ObjectSpawner ObjectSpawner;
 
 	public float TurnChangeDelay = 5;
 	public float ResetDelay = 15;
@@ -33,12 +34,15 @@ public class GameManager : MonoBehaviour
 	public float GenEdgePadding = 200;
 	public float GenMinDistance = 100;
 	public float GenMaxDistance = 500;
+	public float GenMinSceneryDistance = 10;
 
 	List<Player> players = new List<Player>();
 	int currentPlayerIndex = -1; // -1, so that the first changeTurn() will increment it to zero
 	bool gameOver;
 
 	Teleport teleport;
+
+	GameObject worldContainer;
 
 	public Player CurrentPlayer
 	{
@@ -151,14 +155,13 @@ public class GameManager : MonoBehaviour
 		Debug.Log("resetGame");
 
 		// Clear game area
-		foreach (Player p in players)
+		if (worldContainer != null)
 		{
-			if (p.Cannon != null)
-			{
-				Destroy(p.Cannon);
-			}
+			Destroy(worldContainer);
 		}
 		players.Clear();
+
+		worldContainer = new GameObject("WorldContainer");
 
 		List<Color> colors = new List<Color> { Color.red, Color.blue, Color.green, Color.yellow };
 		List<string> colorNames = new List<string> { "Red", "Blue", "Green", "Yellow" };
@@ -200,6 +203,7 @@ public class GameManager : MonoBehaviour
 
 			// TODO dynamic height (0 - 0.39)
 			GameObject cannon = (GameObject)Instantiate(CannonPrefab, new Vector3(pos.x, -0.39f, pos.y), Quaternion.Euler(0, dir, 0));
+			cannon.transform.parent = worldContainer.transform;
 
 			Player player = new Player();
 			player.Id = i;
@@ -260,6 +264,15 @@ public class GameManager : MonoBehaviour
 				}
 			}
 		}
+
+		// Spawn scenery objects, passing in the location of cannons to prevent creating scenery too close to them
+		List<ObjectSpawner.ObjectLocation> cannons = new List<ObjectSpawner.ObjectLocation>();
+		foreach (Player p in players)
+		{
+			cannons.Add(new ObjectSpawner.ObjectLocation(new Vector2(p.Cannon.transform.position.x, p.Cannon.transform.position.z), GenMinSceneryDistance));
+		}
+		ObjectSpawner.SpawnObjects(worldContainer, bounds, cannons);
+
 
 		gameOver = false;
 		changeTurn();

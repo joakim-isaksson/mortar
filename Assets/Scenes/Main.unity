@@ -464,11 +464,13 @@ MonoBehaviour:
   CannonPrefab: {fileID: 114942, guid: 8bab3302fc9645543a0f67f0eb560eae, type: 2}
   Ground: {fileID: 8076872}
   StatusText: {fileID: 701185736}
+  ObjectSpawner: {fileID: 1330562489}
   TurnChangeDelay: 5
   ResetDelay: 10
   GenEdgePadding: 400
   GenMinDistance: 100
   GenMaxDistance: 500
+  GenMinSceneryDistance: 10
 --- !u!4 &637289328
 Transform:
   m_ObjectHideFlags: 0
@@ -732,6 +734,57 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1024835409}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1330562488
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1330562490}
+  - 114: {fileID: 1330562489}
+  m_Layer: 0
+  m_Name: ObjectSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1330562489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1330562488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef42a05cb7074a54d870dd6a614c28e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectCount: 2000
+  Spawnables:
+  - prefab: {fileID: 127148, guid: 0cd0601cf7da9dc4f80b1d60facd05c5, type: 2}
+    radius: 2
+    weight: 1
+  - prefab: {fileID: 111394, guid: 3176aeb440566664ab0bd513a6a46280, type: 2}
+    radius: 2
+    weight: 1
+  - prefab: {fileID: 142766, guid: 3217b1ce4679df94f8c9cd33e8990c0b, type: 2}
+    radius: 2
+    weight: 1
+--- !u!4 &1330562490
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1330562488}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
 --- !u!1 &1410073850
 GameObject:
   m_ObjectHideFlags: 0
@@ -1243,7 +1296,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1815193367}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 46.069927, y: 1.3965347, z: 144.81389}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []

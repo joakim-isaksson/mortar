@@ -16,6 +16,6 @@ public class FlagController : MonoBehaviour
 
 	void Update()
 	{
-		transform.rotation = Quaternion.LookRotation(gameManager.Wind.normalized, Vector3.up);
+		if (gameManager.Wind != Vector3.zero) transform.rotation = Quaternion.LookRotation(gameManager.Wind.normalized, Vector3.up);
 	}
 }

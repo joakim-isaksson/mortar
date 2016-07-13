@@ -34,8 +34,6 @@ public class DebugObject : MonoBehaviour
 			GameManager.Player player = gameManager.CurrentPlayer;
 			CannonController cannon = player.Cannon.GetComponent<CannonController>();
 			cannon.Fire();
-
-			Debug.Log("DEBUG: fired player " + player.Id + " cannon");
 		}
 
 		// Teleport to current cannon
