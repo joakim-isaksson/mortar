@@ -29,7 +29,7 @@ public class DebugObject : MonoBehaviour
 		moveCamera();
 
 		// Fire current cannon
-		if (Input.GetKeyDown(KeyCode.Keypad0))
+		if (Input.GetKeyDown(KeyCode.Keypad0) || Input.GetKeyDown(KeyCode.Alpha0))
 		{
 			GameManager.Player player = gameManager.CurrentPlayer;
 			CannonController cannon = player.Cannon.GetComponent<CannonController>();
@@ -39,7 +39,7 @@ public class DebugObject : MonoBehaviour
 		}
 
 		// Teleport to current cannon
-		if (Input.GetKeyDown(KeyCode.Keypad1))
+		if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1))
 		{
 			GameManager.Player player = gameManager.CurrentPlayer;
 			Vector3 pos = player.TeleportLocations[0].Position;
