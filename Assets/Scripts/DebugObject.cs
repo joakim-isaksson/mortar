@@ -5,8 +5,9 @@ using System.Collections;
  * Currently supported keys:
  *		- WASD/QZ (or arrow keys/numpad +-) : move camera
  *		- LMB drag : camera look
- *		- numpad 0 : fire the cannon of the current player
- *		- numpad 1 : teleport camera to the cannon of the current player
+ *		- numpad 0 : fire the current cannon
+ *		- numpad 1 : teleport camera to the current cannon
+ *		- IJKL : rotate the current cannon
  * 
  **/
 public class DebugObject : MonoBehaviour
@@ -26,7 +27,30 @@ public class DebugObject : MonoBehaviour
 	void Update()
 	{
 		// Handle camera move & look
-		moveCamera();
+		controlCamera();
+
+		// Handle cannon controls
+		controlCannon();
+	}
+
+	void controlCannon()
+	{
+		// Rotate cannon
+		int x = 0, y = 0;
+
+		if (Input.GetKey(KeyCode.I)) y = 1;
+		else if (Input.GetKey(KeyCode.K)) y = -1;
+
+		if (Input.GetKey(KeyCode.J)) x = -1;
+		else if (Input.GetKey(KeyCode.L)) x = 1;
+
+		if (x != 0 || y != 0)
+		{
+			// FIXME needs a better way for figuring out which rotator is which
+			CannonRotator[] rotators = gameManager.CurrentPlayer.Cannon.GetComponentsInChildren<CannonRotator>();
+			if (x != 0) rotators[1].Rotate(360 * x * Time.deltaTime);
+			if (y != 0) rotators[0].Rotate(360 * y * Time.deltaTime);
+		}
 
 		// Fire current cannon
 		if (Input.GetKeyDown(KeyCode.Keypad0) || Input.GetKeyDown(KeyCode.Alpha0))
@@ -35,7 +59,10 @@ public class DebugObject : MonoBehaviour
 			CannonController cannon = player.Cannon.GetComponent<CannonController>();
 			cannon.Fire();
 		}
+	}
 
+	void controlCamera()
+	{
 		// Teleport to current cannon
 		if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1))
 		{
@@ -49,10 +76,8 @@ public class DebugObject : MonoBehaviour
 			mainCamera.transform.position = finalPos;
 			mainCamera.transform.LookAt(pos);
 		}
-	}
 
-	void moveCamera()
-	{
+		// Camera movement
 		Vector3 vec = Vector2.zero;
 
 		if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
@@ -88,6 +113,7 @@ public class DebugObject : MonoBehaviour
 		t.position += t.right * vec.x * Time.deltaTime;
 		t.position += t.up * vec.y * Time.deltaTime;
 
+		// Camera rotation
 		if (Input.GetMouseButton(0))
 		{
 			Vector3 mousePos = Input.mousePosition;

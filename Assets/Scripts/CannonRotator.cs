@@ -1,5 +1,5 @@
 ﻿// Uncomment to test without VR controllers
-//#define _DEBUG_CONTROLLER_
+#define _DEBUG_CONTROLLER_
 
 using UnityEngine;
 using System.Collections;
@@ -73,19 +73,27 @@ public class CannonRotator : MonoBehaviour
 			float maxAngSpeedPerFrame = MaxAngularSpeed * Time.deltaTime * f;
 			angleDiff = Mathf.Clamp(angleDiff, -maxAngSpeedPerFrame, maxAngSpeedPerFrame);
 
-			float nextAngle = angle + Axis[axisIndex] * angleDiff * Multiplier;
-			if (nextAngle > MaxAngle) nextAngle = MaxAngle;
-			else if (nextAngle < MinAngle) nextAngle = MinAngle;
-
-			angleDiff = (nextAngle - angle) / (Axis[axisIndex] * Multiplier);
-
-			angle = nextAngle;
-
-			Wheel.transform.localEulerAngles = Wheel.transform.localEulerAngles + new Vector3(0, 0, angleDiff);
-
-			// Things might break here if axis == -1. If they do multiply the relevant angle by -1.
-			Cannon.transform.localEulerAngles = Axis * angle;
+			Rotate(angleDiff);
 		}
+	}
+
+	/**
+	 * Rotates the wheel by the given amount. Clamping might happen due to cannon max angle constraints.
+	 */
+	public void Rotate(float angleDiff)
+	{
+		float nextAngle = angle + Axis[axisIndex] * angleDiff * Multiplier;
+		if (nextAngle > MaxAngle) nextAngle = MaxAngle;
+		else if (nextAngle < MinAngle) nextAngle = MinAngle;
+
+		angleDiff = (nextAngle - angle) / (Axis[axisIndex] * Multiplier);
+
+		angle = nextAngle;
+
+		Wheel.transform.localEulerAngles = Wheel.transform.localEulerAngles + new Vector3(0, 0, angleDiff);
+
+		// Things might break here if axis == -1. If they do multiply the relevant angle by -1.
+		Cannon.transform.localEulerAngles = Axis * angle;
 	}
 
 	public void OnTriggerStay(Collider other)
