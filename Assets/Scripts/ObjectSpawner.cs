@@ -80,7 +80,8 @@ public class ObjectSpawner : MonoBehaviour
 
 			positions.Add(new ObjectLocation(pos, objectToSpawn.radius));
 
-			GameObject spawnedObject = (GameObject)Instantiate(objectToSpawn.prefab, new Vector3(pos.x, 0, pos.y), Quaternion.identity);
+			float dir = Random.Range(0, 360);
+			GameObject spawnedObject = (GameObject)Instantiate(objectToSpawn.prefab, new Vector3(pos.x, 0, pos.y), Quaternion.Euler(0, dir, 0));
 			spawnedObject.transform.parent = worldContainer.transform;
 
 			objects.Add(spawnedObject);
