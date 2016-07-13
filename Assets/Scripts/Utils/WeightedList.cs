@@ -15,8 +15,8 @@ public class WeightedList<T>
 
 		public ItemHolder(T item, double weight)
 		{
-			this.Item = item;
-			this.Weight = weight;
+			Item = item;
+			Weight = weight;
 		}
 	}
 

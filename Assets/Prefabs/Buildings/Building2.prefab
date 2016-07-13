@@ -10,6 +10,9 @@ GameObject:
   - 4: {fileID: 423542}
   - 33: {fileID: 3313626}
   - 23: {fileID: 2302068}
+  - 65: {fileID: 6544926}
+  - 114: {fileID: 11417434}
+  - 114: {fileID: 11498028}
   m_Layer: 0
   m_Name: Building2
   m_TagString: Untagged
@@ -62,7 +65,42 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 172444}
-  m_Mesh: {fileID: 4300000, guid: 1c2e860f969a692438cdc570f001c372, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 1c2e860f969a692438cdc570f001c372, type: 3}
+--- !u!65 &6544926
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 172444}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 38.94449, y: 18.61098, z: 13.190193}
+  m_Center: {x: 2.8379726, y: 9.305491, z: -0.75602627}
+--- !u!114 &11417434
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 172444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e05d4021efe2ab42a640a9b55991ce7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ExplosionPrefab: {fileID: 177660, guid: 15400bab87887694ebf7cc590eb77ec2, type: 2}
+--- !u!114 &11498028
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 172444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32092e07d6cf35c4d95b061912e6b1fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -761,7 +761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef42a05cb7074a54d870dd6a614c28e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectCount: 2000
+  ObjectCount: 1500
   Spawnables:
   - prefab: {fileID: 127148, guid: 0cd0601cf7da9dc4f80b1d60facd05c5, type: 2}
     radius: 2
@@ -772,6 +772,21 @@ MonoBehaviour:
   - prefab: {fileID: 142766, guid: 3217b1ce4679df94f8c9cd33e8990c0b, type: 2}
     radius: 2
     weight: 1
+  - prefab: {fileID: 168670, guid: dfe721ae53489d14ba8b06ca4b7d4f4a, type: 2}
+    radius: 10
+    weight: 0.002
+  - prefab: {fileID: 172444, guid: 6506052fbd3e7524fb0ef5b82458799b, type: 2}
+    radius: 18
+    weight: 0.002
+  - prefab: {fileID: 153572, guid: 4446a2ded0258e14d97b595591c2f274, type: 2}
+    radius: 10
+    weight: 0.002
+  - prefab: {fileID: 118976, guid: 3cbba4986b9fd0448a173d3f13275942, type: 2}
+    radius: 27
+    weight: 0.002
+  - prefab: {fileID: 145738, guid: dc3cca05a2c10754b9587b851ded7f81, type: 2}
+    radius: 15
+    weight: 0.002
 --- !u!4 &1330562490
 Transform:
   m_ObjectHideFlags: 0
