@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
 	public float MaxWindForce;
 
 	public GameObject CannonPrefab;
-	public Renderer Ground;
+	public Terrain Terrain;
 	public Text StatusText;
 	public ObjectSpawner ObjectSpawner;
 
@@ -168,7 +168,7 @@ public class GameManager : MonoBehaviour
 
 		List<Vector2> positions = new List<Vector2>();
 
-		var bounds = Ground.bounds;
+		var bounds = TerrainUtils.GetTerrainBounds(Terrain);
 		for (int i = 0; i < NUM_PLAYERS; i++)
 		{
 			// TODO better placement randomization
@@ -202,7 +202,8 @@ public class GameManager : MonoBehaviour
 			positions.Add(pos);
 
 			// TODO dynamic height (0 - 0.39)
-			GameObject cannon = (GameObject)Instantiate(CannonPrefab, new Vector3(pos.x, -0.39f, pos.y), Quaternion.Euler(0, dir, 0));
+			float height = Terrain.SampleHeight(new Vector3(pos.x, 0, pos.y));
+			GameObject cannon = (GameObject)Instantiate(CannonPrefab, new Vector3(pos.x, height - 0.39f, pos.y), Quaternion.Euler(0, dir, 0));
 			cannon.transform.parent = worldContainer.transform;
 
 			Player player = new Player();
@@ -236,7 +237,6 @@ public class GameManager : MonoBehaviour
 			// Cannon location
 			Teleport.TeleportLocation t = new Teleport.TeleportLocation();
 			t.Position = p.Cannon.transform.position;
-			t.Position.y = 0;
 			p.TeleportLocations.Add(t);
 
 			// Bird view location(s), one per opponent
@@ -271,7 +271,7 @@ public class GameManager : MonoBehaviour
 		{
 			cannons.Add(new ObjectSpawner.ObjectLocation(new Vector2(p.Cannon.transform.position.x, p.Cannon.transform.position.z), GenMinSceneryDistance));
 		}
-		ObjectSpawner.SpawnObjects(worldContainer, bounds, cannons);
+		ObjectSpawner.SpawnObjects(worldContainer, Terrain, cannons);
 
 
 		gameOver = false;

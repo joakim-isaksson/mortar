@@ -39,12 +39,15 @@ public class ObjectSpawner : MonoBehaviour
 		}
 	}
 
-	public void SpawnObjects(GameObject worldContainer, Bounds bounds, List<ObjectLocation> existingObjects)
+	public void SpawnObjects(GameObject worldContainer, Terrain terrain, List<ObjectLocation> existingObjects)
 	{
 		List<GameObject> objects = new List<GameObject>();
 		List<ObjectLocation> positions = new List<ObjectLocation>();
 
 		if (existingObjects != null) positions.AddRange(existingObjects);
+
+		Bounds bounds = TerrainUtils.GetTerrainBounds(terrain);
+		Debug.Log("terrain bounds: " + bounds);
 
 		for (int i = 0; i < ObjectCount; i++)
 		{
@@ -80,8 +83,10 @@ public class ObjectSpawner : MonoBehaviour
 
 			positions.Add(new ObjectLocation(pos, objectToSpawn.radius));
 
+			float height = terrain.SampleHeight(new Vector3(pos.x, 0, pos.y));
+
 			float dir = Random.Range(0, 360);
-			GameObject spawnedObject = (GameObject)Instantiate(objectToSpawn.prefab, new Vector3(pos.x, 0, pos.y), Quaternion.Euler(0, dir, 0));
+			GameObject spawnedObject = (GameObject)Instantiate(objectToSpawn.prefab, new Vector3(pos.x, height, pos.y), Quaternion.Euler(0, dir, 0));
 			spawnedObject.transform.parent = worldContainer.transform;
 
 			objects.Add(spawnedObject);
