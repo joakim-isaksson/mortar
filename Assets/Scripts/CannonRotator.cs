@@ -1,5 +1,5 @@
 ﻿// Uncomment to test without VR controllers
-#define _DEBUG_CONTROLLER_
+//#define _DEBUG_CONTROLLER_
 
 using UnityEngine;
 using System.Collections;
@@ -100,7 +100,7 @@ public class CannonRotator : MonoBehaviour
 	{
 		if (other.tag == "Controller")
 		{
-			SteamVR_TrackedObject controller = other.GetComponent<SteamVR_TrackedObject>();
+            SteamVR_TrackedObject controller = other.GetComponent<SteamVR_TrackedObject>();
 			if (controller != null)
 			{
 #if (!_DEBUG_CONTROLLER_)
