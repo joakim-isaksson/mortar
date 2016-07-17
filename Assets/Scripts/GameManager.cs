@@ -24,14 +24,13 @@ public class GameManager : MonoBehaviour
 	public float MaxWindForce;
 
 	public GameObject CannonPrefab;
-	public Terrain Terrain;
 	public Text StatusText;
-	public ObjectSpawner ObjectSpawner;
+
+	public GameMap[] GameMaps;
 
 	public float TurnChangeDelay = 5;
 	public float ResetDelay = 15;
 
-	public float GenEdgePadding = 200;
 	public float GenMinDistance = 100;
 	public float GenMaxDistance = 500;
 	public float GenMinSceneryDistance = 10;
@@ -39,10 +38,9 @@ public class GameManager : MonoBehaviour
 	List<Player> players = new List<Player>();
 	int currentPlayerIndex = -1; // -1, so that the first changeTurn() will increment it to zero
 	bool gameOver;
+	GameMap currentGameMap;
 
 	Teleport teleport;
-
-	GameObject worldContainer;
 
 	public Player CurrentPlayer
 	{
@@ -155,56 +153,26 @@ public class GameManager : MonoBehaviour
 		Debug.Log("resetGame");
 
 		// Clear game area
-		if (worldContainer != null)
+		if (currentGameMap != null)
 		{
-			Destroy(worldContainer);
+			Destroy(currentGameMap);
 		}
 		players.Clear();
 
-		worldContainer = new GameObject("WorldContainer");
+		// Pick a random map
+		currentGameMap = Instantiate(GameMaps[Random.Range(0, GameMaps.Length)]);
 
 		List<Color> colors = new List<Color> { Color.red, Color.blue, Color.green, Color.yellow };
 		List<string> colorNames = new List<string> { "Red", "Blue", "Green", "Yellow" };
 
-		List<Vector2> positions = new List<Vector2>();
-
-		var bounds = TerrainUtils.GetTerrainBounds(Terrain);
 		for (int i = 0; i < NUM_PLAYERS; i++)
 		{
-			// TODO better placement randomization
+			Vector3 pos = currentGameMap.GetSpawnPosition(GenMinSceneryDistance, GenMinDistance, GenMaxDistance, currentGameMap.CannonPlacementMap);
+			// TODO implement dynamic cannon height (0 - 0.39)
+			pos.y -= 0.39f;
 			float dir = Random.Range(0, 360);
-
-			Vector2 pos;
-			bool valid;
-			int iteration = 0;
-			do
-			{
-				valid = true;
-
-				float x = Random.Range(bounds.min.x + GenEdgePadding, bounds.max.x - GenEdgePadding);
-				float z = Random.Range(bounds.min.z + GenEdgePadding, bounds.max.z - GenEdgePadding);
-
-				pos = new Vector2(x, z);
-				foreach (Vector2 v in positions)
-				{
-					float sqDist = (v - pos).sqrMagnitude;
-					if (sqDist < GenMinDistance * GenMinDistance || sqDist > GenMaxDistance * GenMaxDistance)
-					{
-						valid = false;
-						break;
-					}
-				}
-
-				if (++iteration > 10000) throw new System.SystemException("failed to randomize placements for players");
-
-			} while (!valid);
-
-			positions.Add(pos);
-
-			// TODO dynamic height (0 - 0.39)
-			float height = Terrain.SampleHeight(new Vector3(pos.x, 0, pos.y));
-			GameObject cannon = (GameObject)Instantiate(CannonPrefab, new Vector3(pos.x, height - 0.39f, pos.y), Quaternion.Euler(0, dir, 0));
-			cannon.transform.parent = worldContainer.transform;
+			GameObject cannon = (GameObject)Instantiate(CannonPrefab, pos, Quaternion.Euler(0, dir, 0));
+			cannon.transform.parent = currentGameMap.WorldContainer.transform;
 
 			Player player = new Player();
 			player.Id = i;
@@ -237,22 +205,22 @@ public class GameManager : MonoBehaviour
 			// Cannon location
 			Teleport.TeleportLocation t = new Teleport.TeleportLocation();
 			t.Position = p.Cannon.transform.position;
+			// TODO account for dynamic height once such is implemented
 			t.Position.y += 0.39f;
 			p.TeleportLocations.Add(t);
 
-			// Bird view location(s), one per opponent
+			// Bird view locations, one per opponent
 			foreach (Player p2 in players)
 			{
 				if (p != p2)
 				{
 					t = new Teleport.TeleportLocation();
 					Vector3 p2p = p2.Cannon.transform.position - p.Cannon.transform.position;
-					p2p.y = 0;
 
 					Vector3 perp = Vector3.Cross(p2p, new Vector3(0, 1, 0)).normalized;
 
 					t.Position = p.Cannon.transform.position + p2p * 0.5f + perp * (p2p.magnitude / 2);
-					t.Position.y = 80;
+					t.Position.y = currentGameMap.Terrain.SampleHeight(new Vector3(t.Position.x, 0, t.Position.z)) + 80;
 
 					Vector3 toCannon = p.Cannon.transform.position - t.Position;
 					toCannon.y = 0;
@@ -266,14 +234,8 @@ public class GameManager : MonoBehaviour
 			}
 		}
 
-		// Spawn scenery objects, passing in the location of cannons to prevent creating scenery too close to them
-		List<ObjectSpawner.ObjectLocation> cannons = new List<ObjectSpawner.ObjectLocation>();
-		foreach (Player p in players)
-		{
-			cannons.Add(new ObjectSpawner.ObjectLocation(new Vector2(p.Cannon.transform.position.x, p.Cannon.transform.position.z), GenMinSceneryDistance));
-		}
-		ObjectSpawner.SpawnObjects(worldContainer, Terrain, cannons);
-
+		// Spawn scenery objects
+		currentGameMap.SpawnSceneryObjects();
 
 		gameOver = false;
 		changeTurn();

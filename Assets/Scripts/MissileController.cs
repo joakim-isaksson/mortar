@@ -37,15 +37,16 @@ public class MissileController : MonoBehaviour
 		rigidBody.AddForce(gameManager.Wind);
 
 		// Check for automatic explosion
-		if (transform.position.y < AutoExplodeAtAltitude) Explode();
+		if (transform.position.y < AutoExplodeAtAltitude) Explode(null);
 	}
 
 	void OnTriggerEnter(Collider collider)
 	{
-		Explode();
+		IDestroyableObject destroyable = collider.gameObject.GetComponent<IDestroyableObject>();
+		Explode(destroyable);
 	}
 
-	void Explode()
+	void Explode(IDestroyableObject target)
 	{
 		// Explode only once
 		if (exploding) return;
@@ -64,12 +65,15 @@ public class MissileController : MonoBehaviour
 		// Notify missile listener of the explosion
 		OnMissileExploded();
 
+		if (target != null) target.OnDestroyObject();
+
 		// Find and destroy all destroyable objects in the blast radius
 		foreach (GameObject obj in DestroyableObject.DestroyableObjects)
 		{
-			if (Vector3.Distance(transform.position, obj.transform.position) < BlastRadius)
+			if ((transform.position - obj.transform.position).sqrMagnitude < BlastRadius * BlastRadius)
 			{
-				obj.GetComponent<IDestroyableObject>().OnDestroyObject();
+				IDestroyableObject destroyable = obj.GetComponent<IDestroyableObject>();
+				if (destroyable != target) destroyable.OnDestroyObject();
 			}
 		}
 

@@ -154,8 +154,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 1330562490}
+  m_RootOrder: 0
 --- !u!1001 &345058240
 Prefab:
   m_ObjectHideFlags: 0
@@ -228,12 +228,11 @@ MonoBehaviour:
   Wind: {x: 0, y: 0, z: 0}
   MaxWindForce: 2
   CannonPrefab: {fileID: 114942, guid: 8bab3302fc9645543a0f67f0eb560eae, type: 2}
-  Terrain: {fileID: 90306268}
   StatusText: {fileID: 701185736}
-  ObjectSpawner: {fileID: 1330562489}
+  GameMaps:
+  - {fileID: 1330562489}
   TurnChangeDelay: 5
   ResetDelay: 10
-  GenEdgePadding: 400
   GenMinDistance: 100
   GenMaxDistance: 500
   GenMinSceneryDistance: 10
@@ -266,7 +265,7 @@ GameObject:
   - 4: {fileID: 1330562490}
   - 114: {fileID: 1330562489}
   m_Layer: 0
-  m_Name: ObjectSpawner
+  m_Name: GameMap01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -288,27 +287,38 @@ MonoBehaviour:
   - prefab: {fileID: 127148, guid: 0cd0601cf7da9dc4f80b1d60facd05c5, type: 2}
     radius: 2
     weight: 1
+    placementMap: {fileID: 2800000, guid: 7d80aefd8fc7d0041b0fccdcb492d89e, type: 3}
   - prefab: {fileID: 111394, guid: 3176aeb440566664ab0bd513a6a46280, type: 2}
     radius: 2
     weight: 1
+    placementMap: {fileID: 2800000, guid: 7d80aefd8fc7d0041b0fccdcb492d89e, type: 3}
   - prefab: {fileID: 142766, guid: 3217b1ce4679df94f8c9cd33e8990c0b, type: 2}
     radius: 2
     weight: 1
+    placementMap: {fileID: 2800000, guid: 7d80aefd8fc7d0041b0fccdcb492d89e, type: 3}
   - prefab: {fileID: 168670, guid: dfe721ae53489d14ba8b06ca4b7d4f4a, type: 2}
     radius: 10
-    weight: 0.002
+    weight: 0.004
+    placementMap: {fileID: 2800000, guid: 9f41a0baa45e2ee47b25e1e89a65d3c2, type: 3}
   - prefab: {fileID: 172444, guid: 6506052fbd3e7524fb0ef5b82458799b, type: 2}
     radius: 18
-    weight: 0.002
+    weight: 0.004
+    placementMap: {fileID: 2800000, guid: 9f41a0baa45e2ee47b25e1e89a65d3c2, type: 3}
   - prefab: {fileID: 153572, guid: 4446a2ded0258e14d97b595591c2f274, type: 2}
     radius: 10
-    weight: 0.002
+    weight: 0.004
+    placementMap: {fileID: 2800000, guid: 9f41a0baa45e2ee47b25e1e89a65d3c2, type: 3}
   - prefab: {fileID: 118976, guid: 3cbba4986b9fd0448a173d3f13275942, type: 2}
     radius: 27
-    weight: 0.002
+    weight: 0.004
+    placementMap: {fileID: 2800000, guid: 9f41a0baa45e2ee47b25e1e89a65d3c2, type: 3}
   - prefab: {fileID: 145738, guid: dc3cca05a2c10754b9587b851ded7f81, type: 2}
     radius: 15
-    weight: 0.002
+    weight: 0.004
+    placementMap: {fileID: 2800000, guid: 9f41a0baa45e2ee47b25e1e89a65d3c2, type: 3}
+  WorldContainer: {fileID: 0}
+  Terrain: {fileID: 0}
+  CannonPlacementMap: {fileID: 2800000, guid: 42c08d921942a394691563b09f29ee76, type: 3}
 --- !u!4 &1330562490
 Transform:
   m_ObjectHideFlags: 0
@@ -319,7 +329,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
+  m_Children:
+  - {fileID: 90306269}
   m_Father: {fileID: 0}
   m_RootOrder: 5
 --- !u!1 &1431539950
