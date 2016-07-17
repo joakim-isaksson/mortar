@@ -237,6 +237,7 @@ public class GameManager : MonoBehaviour
 			// Cannon location
 			Teleport.TeleportLocation t = new Teleport.TeleportLocation();
 			t.Position = p.Cannon.transform.position;
+			t.Position.y += 0.39f;
 			p.TeleportLocations.Add(t);
 
 			// Bird view location(s), one per opponent
