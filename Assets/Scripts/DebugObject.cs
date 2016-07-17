@@ -59,6 +59,14 @@ public class DebugObject : MonoBehaviour
 			CannonController cannon = player.Cannon.GetComponent<CannonController>();
 			cannon.Fire();
 		}
+
+		if (Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.Alpha3))
+		{
+			Debug.Log("DEBUG suicide");
+			GameManager.Player player = gameManager.CurrentPlayer;
+			IDestroyableObject destroyable = player.Cannon.GetComponent<IDestroyableObject>();
+			destroyable.OnDestroyObject();
+		}
 	}
 
 	void controlCamera()

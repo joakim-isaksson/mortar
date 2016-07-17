@@ -85,77 +85,6 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &90306266
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 90306269}
-  - 218: {fileID: 90306268}
-  - 154: {fileID: 90306267}
-  m_Layer: 0
-  m_Name: Terrain
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
---- !u!154 &90306267
-TerrainCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 90306266}
-  m_Material: {fileID: 0}
-  m_Enabled: 1
-  m_TerrainData: {fileID: 15600000, guid: 300e4be5b202b4843bc5e8cf04e3e9b7, type: 2}
-  m_EnableTreeColliders: 1
---- !u!218 &90306268
-Terrain:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 90306266}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_TerrainData: {fileID: 15600000, guid: 300e4be5b202b4843bc5e8cf04e3e9b7, type: 2}
-  m_TreeDistance: 2000
-  m_TreeBillboardDistance: 50
-  m_TreeCrossFadeLength: 5
-  m_TreeMaximumFullLODCount: 50
-  m_DetailObjectDistance: 80
-  m_DetailObjectDensity: 1
-  m_HeightmapPixelError: 5
-  m_SplatMapDistance: 1000
-  m_HeightmapMaximumLOD: 0
-  m_CastShadows: 1
-  m_DrawHeightmap: 1
-  m_DrawTreesAndFoliage: 1
-  m_ReflectionProbeUsage: 1
-  m_MaterialType: 0
-  m_LegacySpecular:
-    serializedVersion: 2
-    rgba: 4286545791
-  m_LegacyShininess: 0.078125
-  m_MaterialTemplate: {fileID: 0}
-  m_BakeLightProbesForTrees: 1
-  m_ScaleInLightmap: 0.0512
-  m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
---- !u!4 &90306269
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 90306266}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -600, y: 0, z: -600}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 1330562490}
-  m_RootOrder: 0
 --- !u!1001 &345058240
 Prefab:
   m_ObjectHideFlags: 0
@@ -230,7 +159,7 @@ MonoBehaviour:
   CannonPrefab: {fileID: 114942, guid: 8bab3302fc9645543a0f67f0eb560eae, type: 2}
   StatusText: {fileID: 701185736}
   GameMaps:
-  - {fileID: 1330562489}
+  - {fileID: 11407244, guid: 8797f9d5c5083a24ab697eaed77818a7, type: 2}
   TurnChangeDelay: 5
   ResetDelay: 10
   GenMinDistance: 100
@@ -255,84 +184,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 345058240}
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
---- !u!1 &1330562488
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1330562490}
-  - 114: {fileID: 1330562489}
-  m_Layer: 0
-  m_Name: GameMap01
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1330562489
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1330562488}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef42a05cb7074a54d870dd6a614c28e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObjectCount: 1500
-  Spawnables:
-  - prefab: {fileID: 127148, guid: 0cd0601cf7da9dc4f80b1d60facd05c5, type: 2}
-    radius: 2
-    weight: 1
-    placementMap: {fileID: 2800000, guid: 7d80aefd8fc7d0041b0fccdcb492d89e, type: 3}
-  - prefab: {fileID: 111394, guid: 3176aeb440566664ab0bd513a6a46280, type: 2}
-    radius: 2
-    weight: 1
-    placementMap: {fileID: 2800000, guid: 7d80aefd8fc7d0041b0fccdcb492d89e, type: 3}
-  - prefab: {fileID: 142766, guid: 3217b1ce4679df94f8c9cd33e8990c0b, type: 2}
-    radius: 2
-    weight: 1
-    placementMap: {fileID: 2800000, guid: 7d80aefd8fc7d0041b0fccdcb492d89e, type: 3}
-  - prefab: {fileID: 168670, guid: dfe721ae53489d14ba8b06ca4b7d4f4a, type: 2}
-    radius: 10
-    weight: 0.004
-    placementMap: {fileID: 2800000, guid: 9f41a0baa45e2ee47b25e1e89a65d3c2, type: 3}
-  - prefab: {fileID: 172444, guid: 6506052fbd3e7524fb0ef5b82458799b, type: 2}
-    radius: 18
-    weight: 0.004
-    placementMap: {fileID: 2800000, guid: 9f41a0baa45e2ee47b25e1e89a65d3c2, type: 3}
-  - prefab: {fileID: 153572, guid: 4446a2ded0258e14d97b595591c2f274, type: 2}
-    radius: 10
-    weight: 0.004
-    placementMap: {fileID: 2800000, guid: 9f41a0baa45e2ee47b25e1e89a65d3c2, type: 3}
-  - prefab: {fileID: 118976, guid: 3cbba4986b9fd0448a173d3f13275942, type: 2}
-    radius: 27
-    weight: 0.004
-    placementMap: {fileID: 2800000, guid: 9f41a0baa45e2ee47b25e1e89a65d3c2, type: 3}
-  - prefab: {fileID: 145738, guid: dc3cca05a2c10754b9587b851ded7f81, type: 2}
-    radius: 15
-    weight: 0.004
-    placementMap: {fileID: 2800000, guid: 9f41a0baa45e2ee47b25e1e89a65d3c2, type: 3}
-  WorldContainer: {fileID: 0}
-  Terrain: {fileID: 0}
-  CannonPlacementMap: {fileID: 2800000, guid: 42c08d921942a394691563b09f29ee76, type: 3}
---- !u!4 &1330562490
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1330562488}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children:
-  - {fileID: 90306269}
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
 --- !u!1 &1431539950
 GameObject:
   m_ObjectHideFlags: 0

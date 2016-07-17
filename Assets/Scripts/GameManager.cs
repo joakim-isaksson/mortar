@@ -155,7 +155,7 @@ public class GameManager : MonoBehaviour
 		// Clear game area
 		if (currentGameMap != null)
 		{
-			Destroy(currentGameMap);
+			Destroy(currentGameMap.gameObject);
 		}
 		players.Clear();
 
