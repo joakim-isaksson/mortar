@@ -14,10 +14,19 @@ public class MissileController : MonoBehaviour
 
 	public Action OnMissileExploded;
 
+	[HideInInspector]
+	public Color TailColor;
+	public float TailWidth;
+
+	GameObject tail;
+	Material tailMaterial;
+	Vector3 prevTailPosition;
+
 	GameManager gameManager;
 	Rigidbody rigidBody;
 	Transform playerPosition;
 	MeshRenderer meshRenderer;
+
 	bool exploding;
 
 	void Awake()
@@ -26,6 +35,11 @@ public class MissileController : MonoBehaviour
 		rigidBody = GetComponent<Rigidbody>();
 		meshRenderer = GetComponent<MeshRenderer>();
 		playerPosition = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+
+		tail = new GameObject("MissileTail");
+		tail.transform.parent = gameManager.CurrentGameMap.WorldContainer.transform;
+		tailMaterial = new Material(Shader.Find("Particles/Alpha Blended Premultiply"));
+		prevTailPosition = transform.position;
 	}
 
 	void FixedUpdate()
@@ -35,6 +49,9 @@ public class MissileController : MonoBehaviour
 
 		// Add wind force
 		rigidBody.AddForce(gameManager.Wind);
+
+		// Update following tail
+		UpdateTail();
 
 		// Check for automatic explosion
 		if (transform.position.y < AutoExplodeAtAltitude) Explode(null);
@@ -84,6 +101,21 @@ public class MissileController : MonoBehaviour
 	IEnumerator WaitAndDestroy(float seconds)
 	{
 		yield return new WaitForSeconds(seconds);
+		Destroy(tail);
 		Destroy(gameObject);
+	}
+
+	void UpdateTail()
+	{
+		GameObject line = new GameObject("Line");
+		line.transform.parent = tail.transform;
+		line.AddComponent<LineRenderer>();
+		LineRenderer renderer = line.GetComponent<LineRenderer>();
+		renderer.material = new Material(Shader.Find("Particles/Alpha Blended Premultiply"));
+		renderer.SetColors(TailColor, TailColor);
+		renderer.SetWidth(TailWidth, TailWidth);
+		renderer.SetPosition(0, prevTailPosition);
+		renderer.SetPosition(1, transform.position);
+		prevTailPosition = transform.position;
 	}
 }

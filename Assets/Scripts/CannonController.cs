@@ -29,6 +29,9 @@ public class CannonController : MonoBehaviour, IDestroyableObject
 	[HideInInspector]
 	public bool FiringEnabled;
 
+	[HideInInspector]
+	public GameManager.Player Player;
+
 	void Awake()
 	{
 		Barrel.transform.localRotation = Quaternion.Euler(BarrelStartAngle, 0, 0);
@@ -67,6 +70,7 @@ public class CannonController : MonoBehaviour, IDestroyableObject
 
 		MissileController missileController = missile.GetComponent<MissileController>();
 		missileController.OnMissileExploded = OnMissileExploded;
+		missileController.TailColor = Player.Color;
 
 		Rigidbody rb = missile.GetComponent<Rigidbody>();
 		rb.AddForce(MissileSpawnPoint.forward * MissileForce, ForceMode.Impulse);

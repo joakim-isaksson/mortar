@@ -325,7 +325,8 @@ MonoBehaviour:
   ExplosionPrefab: {fileID: 100000, guid: 15ca5b8fa431dc04291a79cadcd19874, type: 2}
   AutoExplodeAtAltitude: 0
   BlastRadius: 20
-  FireAction: {fileID: 0}
+  TailColor: {r: 0, g: 0, b: 0, a: 0}
+  TailWidth: 0.1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

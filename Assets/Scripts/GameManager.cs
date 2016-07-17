@@ -35,10 +35,12 @@ public class GameManager : MonoBehaviour
 	public float GenMaxDistance = 500;
 	public float GenMinSceneryDistance = 10;
 
+	[HideInInspector]
+	public GameMap CurrentGameMap;
+
 	List<Player> players = new List<Player>();
 	int currentPlayerIndex = -1; // -1, so that the first changeTurn() will increment it to zero
 	bool gameOver;
-	GameMap currentGameMap;
 
 	Teleport teleport;
 
@@ -153,26 +155,26 @@ public class GameManager : MonoBehaviour
 		Debug.Log("resetGame");
 
 		// Clear game area
-		if (currentGameMap != null)
+		if (CurrentGameMap != null)
 		{
-			Destroy(currentGameMap);
+			Destroy(CurrentGameMap);
 		}
 		players.Clear();
 
 		// Pick a random map
-		currentGameMap = Instantiate(GameMaps[Random.Range(0, GameMaps.Length)]);
+		CurrentGameMap = Instantiate(GameMaps[Random.Range(0, GameMaps.Length)]);
 
 		List<Color> colors = new List<Color> { Color.red, Color.blue, Color.green, Color.yellow };
 		List<string> colorNames = new List<string> { "Red", "Blue", "Green", "Yellow" };
 
 		for (int i = 0; i < NUM_PLAYERS; i++)
 		{
-			Vector3 pos = currentGameMap.GetSpawnPosition(GenMinSceneryDistance, GenMinDistance, GenMaxDistance, currentGameMap.CannonPlacementMap);
+			Vector3 pos = CurrentGameMap.GetSpawnPosition(GenMinSceneryDistance, GenMinDistance, GenMaxDistance, CurrentGameMap.CannonPlacementMap);
 			// TODO implement dynamic cannon height (0 - 0.39)
 			pos.y -= 0.39f;
 			float dir = Random.Range(0, 360);
 			GameObject cannon = (GameObject)Instantiate(CannonPrefab, pos, Quaternion.Euler(0, dir, 0));
-			cannon.transform.parent = currentGameMap.WorldContainer.transform;
+			cannon.transform.parent = CurrentGameMap.WorldContainer.transform;
 
 			Player player = new Player();
 			player.Id = i;
@@ -189,6 +191,7 @@ public class GameManager : MonoBehaviour
 			cannonController.OnCannonFired = delegate { cannonController.FiringEnabled = false; };
 			cannonController.OnCannonExploded = delegate { OnCannonDestroyed(player.Cannon); };
 			cannonController.OnMissileExploded = delegate { StartCoroutine(changeTurnDelayed()); };
+			cannonController.Player = player;
 
 			colors.RemoveAt(colorIndex);
 			colorNames.RemoveAt(colorIndex);
@@ -220,7 +223,7 @@ public class GameManager : MonoBehaviour
 					Vector3 perp = Vector3.Cross(p2p, new Vector3(0, 1, 0)).normalized;
 
 					t.Position = p.Cannon.transform.position + p2p * 0.5f + perp * (p2p.magnitude / 2);
-					t.Position.y = currentGameMap.Terrain.SampleHeight(new Vector3(t.Position.x, 0, t.Position.z)) + 80;
+					t.Position.y = CurrentGameMap.Terrain.SampleHeight(new Vector3(t.Position.x, 0, t.Position.z)) + 80;
 
 					Vector3 toCannon = p.Cannon.transform.position - t.Position;
 					toCannon.y = 0;
@@ -235,7 +238,7 @@ public class GameManager : MonoBehaviour
 		}
 
 		// Spawn scenery objects
-		currentGameMap.SpawnSceneryObjects();
+		CurrentGameMap.SpawnSceneryObjects();
 
 		gameOver = false;
 		changeTurn();
